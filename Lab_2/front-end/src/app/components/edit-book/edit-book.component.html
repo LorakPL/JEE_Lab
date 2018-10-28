@@ -1,0 +1,33 @@
+<form #bookForm="ngForm" *ngIf="book">
+  <table class="table table-striped">
+    <tr>
+      <td>Tytuł:</td>
+      <td>
+        <input type="text" name="title" class="form-control" [(ngModel)]="book.title">
+      </td>
+    </tr>
+
+    <tr>
+      <td>Data wydania (RRRR-MM-DD):</td>
+      <td>
+        <input type="text" name="publishDate" class="form-control" [(ngModel)]="book.publishDate">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Autorzy:
+      </td>
+      <td>
+        <select [(ngModel)]="book.authors" name="authors" multiple class="form-control" [compareWith]="compareAuthors">
+          <option *ngFor="let author of availableAuthors" [ngValue]="author">
+            {{author.name}} {{author.surname}}
+          </option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <button type="button" class="btn btn-primary" (click)="save()">Zapisz</button>
+  <button type="button" class="btn btn-default" routerLink="/">Powrót</button>
+</form>

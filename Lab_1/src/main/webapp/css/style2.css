@@ -1,0 +1,58 @@
+.table{
+    border-collapse:collapse;
+}
+
+.table-row {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-shadow: 0px 0px 70px 0px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0px 0px 70px 0px rgba(0,0,0,0.7);
+    box-shadow: 0px 0px 70px 0px rgba(0,0,0,0.7);
+}
+
+.delete-button, .edit-button, .add-button {
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 15px 0 15px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.delete-button {
+    background-color: #ff0000;
+}
+
+.delete-button:hover {
+    background-color: #d92626;
+}
+
+.edit-button {
+    background-color: #0080ff;
+}
+
+.edit-button:hover {
+    background-color: #2680d9;
+}
+
+.add-button {
+    margin: 10px auto 10px auto;
+    background-color: #46b946;
+}
+
+.add-button:hover {
+    background-color: #2dd22d;
+}
+
+.column {
+    padding: 15px;
+}

@@ -1,0 +1,146 @@
+<form #computerSetForm="ngForm" *ngIf="computerSet">
+  <table class="table table-striped">
+    <tr>
+      <td>Użytkownik:</td>
+      <td>
+        <select [(ngModel)]="computerSet.user" name="user" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let user of availableUsers" [ngValue]="user">
+            {{user.username}}
+          </option>
+        </select>
+      </td>
+      <td>{{computerSet.user.username}}</td>
+    </tr>
+
+    <tr>
+      <td>Płyta główna:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[0]" name="motherboard" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('MOTHERBOARD')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[0]">{{computerSet.parts[0].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Karta graficzna:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[1]" name="graphic_card" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('GRAPHIC_CARD')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[1]">{{computerSet.parts[1].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Dysk twardy:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[2]" name="hard_drive" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('HARD_DRIVE')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[2]">{{computerSet.parts[2].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Pamieć RAM:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[3]" name="ram" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('RAM')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[3]">{{computerSet.parts[3].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Obudowa:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[4]" name="case" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('CASE')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[4]">{{computerSet.parts[4].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Chłodzenie:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[5]" name="cooling" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('COOLING')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[5]">{{computerSet.parts[5].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Zasilacz:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[6]" name="power_supply" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('POWER_SUPPLY')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[6]">{{computerSet.parts[6].name}}</td>
+    </tr>
+
+    <tr>
+      <td>Procesor:</td>
+      <td>
+        <select [(ngModel)]="computerSet.parts[7]" name="processor" class="form-control">
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
+          <option *ngFor="let part of getPartsByType('PROCESSOR')" [ngValue]="part">
+            {{part.name}}
+          </option>
+        </select>
+      </td>
+      <td *ngIf="computerSet.parts[7]">{{computerSet.parts[7].name}}</td>
+    </tr>
+
+    <!--
+    Płyta główna
+    Karta graficzna
+    Dysk twardy
+    Pamięć RAM
+    Obudowa
+    Chłodzenie
+    Zasilacz
+    Procesor
+
+    <tr *ngFor="let part of computerSet.parts;let i = index;">
+    <td>{{getType(part.type)}}</td>
+    <td>
+      <select [(ngModel)]="computerSet.parts[i]" name="part" class="form-control">
+        <option *ngFor="let part of getPartsByType(computerSet.parts[i].type)" [ngValue]="part">
+          {{part.name}}
+        </option>
+      </select>
+    </td>
+    </tr>
+    -->
+
+  </table>
+
+  <button type="button" class="btn btn-primary" (click)="save()">Zapisz</button>
+  <button type="button" class="btn btn-default" routerLink="/computerSetsLink">Powrót</button>
+</form>

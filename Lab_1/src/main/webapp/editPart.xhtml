@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xml:lang="en" lang="en">
+<head>
+    <title>JEE Lab</title>
+    <link rel="stylesheet" type="text/css" href="css/menu.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <f:metadata>
+        <f:viewParam name="part" value="#{editPart.part}"/>
+    </f:metadata>
+</head>
+<body>
+<ui:include src="menu.xhtml" />
+<div class="content">
+    <div class="card">
+        <h:form>
+
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Nazwa:" for="name"/>
+                <h:inputText id="name" value="#{editPart.part.name}"/>
+                <h:message for="name"/>
+
+                <h:outputLabel value="Cena:" for="price"/>
+                <h:inputText id="price" value="#{editPart.part.price}"/>
+                <h:message for="price"/>
+
+                <h:outputLabel value="Typ:" for="type"/>
+                <h:selectOneMenu value="#{editPart.part.type}" id="type" styleClass="dropdown">
+                    <f:selectItems value="#{editPart.partTypes}" var="type" itemValue="#{type}" itemLabel="#{type.key}" style="background-color:red" />
+                </h:selectOneMenu>
+                <h:message for="type"/>
+            </h:panelGrid>
+
+            <h:commandButton value="Zapisz" action="#{editPart.savePart()}" styleClass="add-button"/>
+        </h:form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<table class="table table-striped" *ngIf="book">
+  <tr>
+    <td>Tytuł</td>
+    <td>{{book.title}}</td>
+  </tr>
+
+  <tr>
+    <td>Data wydania</td>
+    <td>{{book.publishDate}}</td>
+  </tr>
+</table>
+
+<button class="btn btn-default" routerLink="/">Powrót</button>

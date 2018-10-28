@@ -1,0 +1,23 @@
+<table class="table table-striped" *ngIf="part">
+  <tr>
+    <td>Identyfikator</td>
+    <td>{{part.id}}</td>
+  </tr>
+
+  <tr>
+    <td>Nazwa</td>
+    <td>{{part.name}}</td>
+  </tr>
+
+  <tr>
+    <td>Cena</td>
+    <td>{{part.price}} zł</td>
+  </tr>
+
+  <tr>
+    <td>Typ</td>
+    <td>{{getType(part.type)}}</td>
+  </tr>
+</table>
+
+<button class="btn btn-default" routerLink="/partsLink">Powrót</button>

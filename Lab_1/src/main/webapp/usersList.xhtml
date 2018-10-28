@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>JEE Lab</title>
+    <link rel="stylesheet" type="text/css" href="css/menu.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</h:head>
+<h:body>
+    <ui:include src="menu.xhtml" />
+    <div class="content">
+        <div class="card">
+            <h:dataTable value="#{userService.users}" var="user" styleClass="table" rowClasses="table-row" columnClasses="column">
+
+                <h:column>
+                    <h:outputText value="#{user.id}" styleClass="column"/>
+                </h:column>
+
+                <h:column>
+                    <h:outputText value="#{user.username}" escape="true" styleClass="column"/>
+                </h:column>
+
+                <h:column>
+                    <h:outputText value="#{user.name}" escape="true" styleClass="column"/>
+                </h:column>
+
+                <h:column>
+                    <h:outputText value="#{user.surname}" escape="true" styleClass="column"/>
+                </h:column>
+
+
+                <h:column>
+                    <!--<form action="/delete/">-->
+                    <!--<input type="hidden" name="id" value="2"/>-->
+                    <!--<input type="submit"/>-->
+                    <!--</form>-->
+
+                    <h:form>
+                        <h:commandButton value="Usuń" styleClass="delete-button" action="#{userService.removeUser(user)}"/>
+                    </h:form>
+
+                </h:column>
+
+                <h:column>
+                    <!--<form action="/delete/">-->
+                    <!--<input type="hidden" name="id" value="2"/>-->
+                    <!--<input type="submit"/>-->
+                    <!--</form>-->
+                        <h:button value="Edytuj" styleClass="edit-button" outcome="editUser.xhtml">
+                            <f:param name="user" value="#{user.id}"/>
+                        </h:button>
+
+                </h:column>
+            </h:dataTable>
+            <h:button class="add-button" value="Dodaj" outcome="editUser.xhtml"/>
+        </div>
+    </div>
+</h:body>
+</html>

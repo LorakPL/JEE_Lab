@@ -1,0 +1,39 @@
+<table class="table table-striped table-hover">
+  <tr *ngFor="let computerSet of computerSets | async">
+    <td>
+      {{computerSet.id}}
+    </td>
+
+    <td>
+      {{computerSet.user.username}}
+    </td>
+
+    <td>
+      <table>
+        <tr *ngFor="let part of computerSet.parts">
+          <td>
+            <strong>{{getType(part.type)}}:</strong> {{part.name}}
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td>
+      <button class="btn btn-default" [routerLink]="['/computerSetsLink', computerSet.id]">Pokaż</button>
+    </td>
+
+    <td>
+      <button class="btn btn-default" [routerLink]="['/computerSetsLink', computerSet.id, 'edit']">Edytuj</button>
+    </td>
+
+    <td>
+      <button class="btn btn-danger" (click)="remove(computerSet)">Usuń</button>
+    </td>
+  </tr>
+</table>
+
+<!--
+<button class="btn btn-primary" routerLink="/tmp2/new">Nowy zestaw komputerowy</button>
+-->
+
+<button class="btn btn-primary" (click)="moveToEditSite()">Nowy zestaw komputerowy</button>

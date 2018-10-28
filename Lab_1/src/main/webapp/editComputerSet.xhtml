@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xml:lang="en"
+      lang="en">
+<head>
+    <title>JEE Lab</title>
+    <link rel="stylesheet" type="text/css" href="css/menu.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <f:metadata>
+        <f:viewParam name="computerSet" value="#{editComputerSet.computerSet}"/>
+    </f:metadata>
+</head>
+<body>
+<ui:include src="menu.xhtml" />
+<div class="content">
+    <div class="card">
+        <h:form>
+
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Użytkownik:" for="users"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.user}" id="users" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.users}" var="user" itemValue="#{user}" itemLabel="#{user.username}"/>
+                </h:selectOneMenu>
+                <h:message for="users"/>
+
+                <h:outputLabel value="Płyta główna:" for="motherboard"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.motherboard}" id="motherboard" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.motherbaords}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="motherboard"/>
+
+                <h:outputLabel value="Karta graficzna:" for="graphicCard"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.graphicCard}" id="graphicCard" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.graphicCards}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="graphicCard"/>
+
+                <h:outputLabel value="Dysk twardy:" for="hardDrive"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.hardDrive}" id="hardDrive" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.hardDrives}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="hardDrive"/>
+
+                <h:outputLabel value="Pamięć RAM:" for="ram"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.ram}" id="ram" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.RAMs}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="ram"/>
+
+                <h:outputLabel value="Obudowa:" for="computerCase"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.computerCase}" id="computerCase" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.computerCases}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="computerCase"/>
+
+                <h:outputLabel value="Chłodzenie:" for="cooling"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.cooling}" id="cooling" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.coolings}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="cooling"/>
+
+                <h:outputLabel value="Zasilacz:" for="powerSupply"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.powerSupply}" id="powerSupply" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.powerSupplies}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="powerSupply"/>
+
+                <h:outputLabel value="Procesor:" for="processor"/>
+                <h:selectOneMenu value="#{editComputerSet.computerSet.processor}" id="processor" styleClass="dropdown">
+                    <f:selectItems value="#{editComputerSet.processors}" var="part" itemValue="#{part}" itemLabel="#{part.name}"/>
+                </h:selectOneMenu>
+                <h:message for="processor"/>
+            </h:panelGrid>
+
+            <h:commandButton value="Zapisz" action="#{editComputerSet.saveComputerSet()}" styleClass="add-button"/>
+        </h:form>
+    </div>
+</div>
+
+</body>
+</html>
