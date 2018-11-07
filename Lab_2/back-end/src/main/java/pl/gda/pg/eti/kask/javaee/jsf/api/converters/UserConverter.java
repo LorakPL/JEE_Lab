@@ -7,7 +7,6 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 public class UserConverter extends AbstractEntityConverter<User> {
-
     public UserConverter() {
         super(User.class, User::getId, ViewService::findUser);
     }

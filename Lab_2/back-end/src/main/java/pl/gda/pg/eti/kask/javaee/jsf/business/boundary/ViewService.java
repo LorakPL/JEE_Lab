@@ -25,10 +25,6 @@ public class ViewService implements Serializable {
 
     @PostConstruct
     public void init() {
-        //User user1 = new User(1, "jan.nowak@gmail.com", "12345");
-        //User user2 = new User(1, "jan.nowak@gmail.com", "12345");
-        //User user3 = new User(1, "jan.nowak@gmail.com", "12345");
-
         User user1 = new User(1, "jan.nowak@gmail.com", "Jan", "Nowak");
         User user2 = new User(2, "adam.kowalski@gmail.com", "Adam", "Kowalski");
         User user3 = new User(3, "piotr.zielinski@gmail.com", "Piotr", "Zieliński");

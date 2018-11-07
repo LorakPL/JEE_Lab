@@ -1,8 +1,6 @@
 package pl.gda.pg.eti.kask.javaee.jsf.api.converters;
 
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.BookService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Book;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
