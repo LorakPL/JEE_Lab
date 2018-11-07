@@ -53,6 +53,15 @@ public class UsersController {
             return status(Response.Status.BAD_REQUEST).build();
         }
 
+        List<ComputerSet> computerSets = viewService.getComputerSetsByUser(updatedUser);
+
+        for(int i = 0; i < computerSets.size(); i++) {
+            if(computerSets.get(i).getUser().getId() == updatedUser.getId()) {
+                computerSets.get(i).setUser(updatedUser);
+            }
+            viewService.saveComputerSet(computerSets.get(i));
+        }
+
         viewService.saveUser(updatedUser);
         return ok().build();
     }

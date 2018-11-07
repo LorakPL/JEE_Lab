@@ -227,7 +227,7 @@ public class ViewService implements Serializable {
     public List<ComputerSet> getComputerSetsByUser(User user) {
         List<ComputerSet> computerSets = new ArrayList<>();
         for(ComputerSet computerSet : this.computerSets.values()) {
-            if(computerSet.getUser() == user) {
+            if(computerSet.getUser().getId() == user.getId()) {
                 computerSets.add(computerSet);
             }
         }
@@ -238,7 +238,7 @@ public class ViewService implements Serializable {
         List<ComputerSet> computerSets = new ArrayList<>();
         for(ComputerSet computerSet : this.computerSets.values()) {
             for(Part partInComputerSetList : computerSet.getParts()) {
-                if(partInComputerSetList == part) {
+                if(partInComputerSetList.getId() == part.getId()) {
                     computerSets.add(computerSet);
                     break;
                 }
@@ -246,6 +246,4 @@ public class ViewService implements Serializable {
         }
         return computerSets;
     }
-
-
 }
