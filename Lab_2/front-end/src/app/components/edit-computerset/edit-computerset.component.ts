@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Part} from '../../model/part';
 import {ViewService} from '../../services/view.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartType} from '../../model/partType';
@@ -16,7 +15,6 @@ export class EditComputersetComponent implements OnInit {
   computerSet: ComputerSet;
   availableParts: any[];
   availableUsers: any[];
-  partType: PartType;
 
   constructor(private viewService: ViewService,
               private route: ActivatedRoute,
@@ -42,10 +40,6 @@ export class EditComputersetComponent implements OnInit {
     return PartType[data];
   }
 
-  getPartType(data) {
-    return data;
-  }
-
   getPartsByType(type) {
     if (this.availableParts) {
       return this.availableParts.filter(res => res.type === type);
@@ -54,25 +48,12 @@ export class EditComputersetComponent implements OnInit {
 
 
   save() {
-    // console.log(this.computerSet);
-
     if(!this.computerSet.user || !(this.computerSet.parts.length > 7)) {
       alert("Proszę wprowadzić wszystkie dane");
     } else {
       this.viewService.saveComputerSet(this.computerSet)
         .subscribe(() => this.router.navigateByUrl('/computerSetsLink'));
     }
-
-    /*
-    if (!this.part.name || !this.part.price || !this.part.type) {
-      alert("Proszę wprowadzić wszystkie dane");
-    } else if (!this.part.price.match(/\d+/g)) {
-      alert("Proszę wprowadzić poprawne dane");
-    } else {
-      this.viewService.savePart(this.part)
-        .subscribe(() => this.router.navigateByUrl('/partsLink'));
-    }
-    */
   }
 
 }

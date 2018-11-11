@@ -60,6 +60,23 @@ public class PartsController {
             return status(Response.Status.BAD_REQUEST).build();
         }
 
+        List<ComputerSet> computerSets = viewService.getComputerSetsByPart(originalPart);
+
+        if(originalPart.getType() != updatedPart.getType()) {
+            for(ComputerSet computerSet : computerSets) {
+                viewService.removeComputerSet(computerSet);
+            }
+        } else {
+            for(int i = 0; i < computerSets.size(); i++) {
+                for(int j = 0; j < computerSets.get(i).getParts().size(); j++) {
+                    if(computerSets.get(i).getParts().get(j).getId() == updatedPart.getId()) {
+                        computerSets.get(i).getParts().set(j, updatedPart);
+                    }
+                }
+                viewService.saveComputerSet(computerSets.get(i));
+            }
+        }
+
         viewService.savePart(updatedPart);
         return ok().build();
     }

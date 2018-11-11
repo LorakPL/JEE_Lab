@@ -20,7 +20,7 @@
       </td>
       <td>
         <select [(ngModel)]="part.type" name="type" class="form-control">
-          <option value="" [disabled]="false" [selected]="true">--please select--</option>
+          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
           <option *ngFor="let partType of availableTypes" [ngValue]="partType">
             {{getType(partType)}}
           </option>

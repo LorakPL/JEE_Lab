@@ -1,9 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ListBooksComponent} from './components/list-books/list-books.component';
-import {ViewBookComponent} from './components/view-book/view-book.component';
-// import {ListAuthorsComponent} from './components/list-authors/list-authors.component';
-import {EditBookComponent} from './components/edit-book/edit-book.component';
 import {ListUsersComponent} from './components/list-users/list-users.component';
 import {EditUserComponent} from './components/edit-user/edit-user.component';
 import {ListPartsComponent} from './components/list-parts/list-parts.component';
@@ -27,13 +23,6 @@ const routes: Routes = [
   {path: 'computerSetsLink/:id', component: ViewComputersetComponent},
   {path: 'tmp2/new', component: EditComputersetComponent},
   {path: 'computerSetsLink/:id/edit', component: EditComputersetComponent},
-  /*
-  {path: '', component: ListBooksComponent},
-  {path: 'books/new', component: EditBookComponent},
-  {path: 'books/:id', component: ViewBookComponent},
-  {path: 'books/:id/edit', component: EditBookComponent},
-  {path: 'authors', component: ListAuthorsComponent},
-  */
 ];
 
 @NgModule({

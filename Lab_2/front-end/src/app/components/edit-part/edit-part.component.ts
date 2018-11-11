@@ -35,15 +35,10 @@ export class EditPartComponent implements OnInit {
     return PartType[data];
   }
 
-  getPartType(data) {
-    return data;
-  }
-
-
   save() {
     if (!this.part.name || !this.part.price || !this.part.type) {
       alert("Proszę wprowadzić wszystkie dane");
-    } else if (!this.part.price.match(/\d+/g)) {
+    } else if (!this.part.price.match('^\\d+$')) {
       alert("Proszę wprowadzić poprawne dane");
     } else {
       this.viewService.savePart(this.part)

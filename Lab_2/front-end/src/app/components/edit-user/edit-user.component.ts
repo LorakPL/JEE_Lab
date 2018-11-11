@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Book} from '../../model/book';
-import {Author} from '../../model/author';
-import {BooksService} from '../../services/books.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ViewService} from '../../services/view.service';
 import {User} from '../../model/user';
