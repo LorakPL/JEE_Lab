@@ -1,0 +1,33 @@
+<table class="table table-striped table-hover">
+  <tr *ngFor="let part of parts | async">
+    <td>
+      {{part.id}}
+    </td>
+
+    <td>
+      {{part.name}}
+    </td>
+
+    <td>
+      {{part.price}} zł
+    </td>
+
+    <td>
+      {{getType(part.type)}}
+    </td>
+
+    <td>
+      <button class="btn btn-default" [routerLink]="['/partsLink', part.id]">Pokaż</button>
+    </td>
+
+    <td>
+      <button class="btn btn-default" [routerLink]="['/partsLink', part.id, 'edit']">Edytuj</button>
+    </td>
+
+    <td>
+      <button class="btn btn-danger" (click)="remove(part)">Usuń</button>
+    </td>
+  </tr>
+</table>
+
+<button class="btn btn-primary" routerLink="/tmp/new">Nowa część</button>

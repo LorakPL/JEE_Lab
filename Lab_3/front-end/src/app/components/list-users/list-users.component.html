@@ -1,0 +1,33 @@
+<table class="table table-striped table-hover">
+  <tr *ngFor="let user of users | async">
+    <td>
+      {{user.id}}
+    </td>
+
+    <td>
+      {{user.username}}
+    </td>
+
+    <td>
+      {{user.name}}
+    </td>
+
+    <td>
+      {{user.secondName}}
+    </td>
+
+    <td>
+      <button class="btn btn-default" [routerLink]="['usersLink', user.id]">Pokaż</button>
+    </td>
+
+    <td>
+      <button class="btn btn-default" [routerLink]="['usersLink', user.id, 'edit']">Edytuj</button>
+    </td>
+
+    <td>
+      <button class="btn btn-danger" (click)="remove(user)">Usuń</button>
+    </td>
+  </tr>
+</table>
+
+<button class="btn btn-primary" routerLink="usersLink/new">Nowy użytkownik</button>

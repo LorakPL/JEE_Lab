@@ -1,0 +1,23 @@
+<table class="table table-striped" *ngIf="user">
+  <tr>
+    <td>Identyfikator</td>
+    <td>{{user.id}}</td>
+  </tr>
+
+  <tr>
+    <td>Nazwa użytkownika</td>
+    <td>{{user.username}}</td>
+  </tr>
+
+  <tr>
+    <td>Imię</td>
+    <td>{{user.name}}</td>
+  </tr>
+
+  <tr>
+    <td>Nazwisko</td>
+    <td>{{user.secondName}}</td>
+  </tr>
+</table>
+
+<button class="btn btn-default" routerLink="/">Powrót</button>
