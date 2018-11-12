@@ -1,15 +1,17 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.PartType;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
+import pl.gda.pg.eti.kask.javaee.jsf.api.ComputerSetController;
+import pl.gda.pg.eti.kask.javaee.jsf.api.PartsController;
+import pl.gda.pg.eti.kask.javaee.jsf.api.UsersController;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static pl.gda.pg.eti.kask.javaee.jsf.api.UriUtils.uri;
 
 @ApplicationScoped
 public class ViewService implements Serializable {
@@ -25,30 +27,95 @@ public class ViewService implements Serializable {
 
     @PostConstruct
     public void init() {
-        User user1 = new User(1, "jan.nowak@gmail.com", "Jan", "Nowak");
-        User user2 = new User(2, "adam.kowalski@gmail.com", "Adam", "Kowalski");
-        User user3 = new User(3, "piotr.zielinski@gmail.com", "Piotr", "Zieliński");
+        createUsers();
+        createParts();
+        createComputerSets();
+    }
+
+    private void createUsers() {
+        User user1 = new User(1, "jan.nowak@gmail.com", "Jan", "Nowak", new ArrayList<>(){{
+            add(new Link(uri(UsersController.class, "getUser", 1).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByUserId", 1).toString(), "computerSets"));
+        }});
+        User user2 = new User(2, "adam.kowalski@gmail.com", "Adam", "Kowalski", new ArrayList<>(){{
+            add(new Link(uri(UsersController.class, "getUser", 2).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByUserId", 2).toString(), "computerSets"));
+        }});
+        User user3 = new User(3, "piotr.zielinski@gmail.com", "Piotr", "Zieliński", new ArrayList<>(){{
+            add(new Link(uri(UsersController.class, "getUser", 3).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByUserId", 3).toString(), "computerSets"));
+        }});
 
         users.put(user1.getId(), user1);
         users.put(user2.getId(), user2);
         users.put(user3.getId(), user3);
+    }
 
-        Part part1 = new Part(1, "Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
-        Part part2 = new Part(2, "Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
-        Part part3 = new Part(3, "MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD);
-        Part part4 = new Part(4, "Gigabyte GeForce GTX 1060 WindForce II OC 6GB GDDR5", "1199", PartType.GRAPHIC_CARD);
-        Part part5 = new Part(5, "Intel i7-7700 3.60GHz 8MB BOX", "1599", PartType.PROCESSOR);
-        Part part6 = new Part(6, "Intel i7-8700K 3.70GHz 12MB", "2349", PartType.PROCESSOR);
-        Part part7 = new Part(7, "Gigabyte Z370 AORUS Gaming K3", "529", PartType.MOTHERBOARD);
-        Part part8 = new Part(8, "ASRock Z370 Pro4", "439", PartType.MOTHERBOARD);
-        Part part9 = new Part(9, "HyperX 8GB 2400MHz Fury Black CL15", "319", PartType.RAM);
-        Part part10 = new Part(10, "G.SKILL 16GB 3000MHz Aegis CL16 (2x8GB)", "589", PartType.RAM);
-        Part part11 = new Part(11, "Zalman Z3 PLUS USB 3.0 czarna", "159", PartType.CASE);
-        Part part12 = new Part(12, "SilentiumPC Regnum RG4T RGB Pure Black", "229", PartType.CASE);
-        Part part13 = new Part(13, "SilentiumPC 600W Vero L2 Bronze", "209", PartType.POWER_SUPPLY);
-        Part part14 = new Part(14, "be quiet! System Power 9 500W", "209", PartType.POWER_SUPPLY);
-        Part part15 = new Part(15, "Thermalright HR-02 - Macho Rev. B", "209", PartType.COOLING);
-        Part part16 = new Part(16, "SilentiumPC Fortis 3 HE1425 v2", "149", PartType.COOLING);
+    private void createParts() {
+        Part part1 = new Part(1, "Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE, new ArrayList<Link>(){{
+            add(new Link(uri(PartsController.class, "getPart", 1).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 1).toString(), "computerSets"));
+        }});
+        Part part2 = new Part(2, "Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 2).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 2).toString(), "computerSets"));
+        }});
+        Part part3 = new Part(3, "MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 3).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 3).toString(), "computerSets"));
+        }});
+        Part part4 = new Part(4, "Gigabyte GeForce GTX 1060 WindForce II OC 6GB GDDR5", "1199", PartType.GRAPHIC_CARD, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 4).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 4).toString(), "computerSets"));
+        }});
+        Part part5 = new Part(5, "Intel i7-7700 3.60GHz 8MB BOX", "1599", PartType.PROCESSOR, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 5).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 5).toString(), "computerSets"));
+        }});
+        Part part6 = new Part(6, "Intel i7-8700K 3.70GHz 12MB", "2349", PartType.PROCESSOR, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 6).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 6).toString(), "computerSets"));
+        }});
+        Part part7 = new Part(7, "Gigabyte Z370 AORUS Gaming K3", "529", PartType.MOTHERBOARD, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 7).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 7).toString(), "computerSets"));
+        }});
+        Part part8 = new Part(8, "ASRock Z370 Pro4", "439", PartType.MOTHERBOARD, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 8).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 8).toString(), "computerSets"));
+        }});
+        Part part9 = new Part(9, "HyperX 8GB 2400MHz Fury Black CL15", "319", PartType.RAM, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 9).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 9).toString(), "computerSets"));
+        }});
+        Part part10 = new Part(10, "G.SKILL 16GB 3000MHz Aegis CL16 (2x8GB)", "589", PartType.RAM, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 10).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 10).toString(), "computerSets"));
+        }});
+        Part part11 = new Part(11, "Zalman Z3 PLUS USB 3.0 czarna", "159", PartType.CASE, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 11).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 11).toString(), "computerSets"));
+        }});
+        Part part12 = new Part(12, "SilentiumPC Regnum RG4T RGB Pure Black", "229", PartType.CASE, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 12).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 12).toString(), "computerSets"));
+        }});
+        Part part13 = new Part(13, "SilentiumPC 600W Vero L2 Bronze", "209", PartType.POWER_SUPPLY, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 13).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 13).toString(), "computerSets"));
+        }});
+        Part part14 = new Part(14, "be quiet! System Power 9 500W", "209", PartType.POWER_SUPPLY, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 14).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 14).toString(), "computerSets"));
+        }});
+        Part part15 = new Part(15, "Thermalright HR-02 - Macho Rev. B", "209", PartType.COOLING, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 15).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 15).toString(), "computerSets"));
+        }});
+        Part part16 = new Part(16, "SilentiumPC Fortis 3 HE1425 v2", "149", PartType.COOLING, new ArrayList<>(){{
+            add(new Link(uri(PartsController.class, "getPart", 16).toString(), "self"));
+            add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 16).toString(), "computerSets"));
+        }});
 
         parts.put(part1.getId(), part1);
         parts.put(part2.getId(), part2);
@@ -66,8 +133,9 @@ public class ViewService implements Serializable {
         parts.put(part14.getId(), part14);
         parts.put(part15.getId(), part15);
         parts.put(part16.getId(), part16);
+    }
 
-
+    private void createComputerSets() {
         for(int i = 0; i < 10; i++) {
             List<Part> partList = new ArrayList<>();
             partList.add(getPartByType(PartType.MOTHERBOARD));
@@ -78,7 +146,15 @@ public class ViewService implements Serializable {
             partList.add(getPartByType(PartType.COOLING));
             partList.add(getPartByType(PartType.POWER_SUPPLY));
             partList.add(getPartByType(PartType.PROCESSOR));
-            ComputerSet computerSet = new ComputerSet(i + 1, getRandomUser(), partList);
+            int index = i + 1;
+            User user = getRandomUser();
+            ComputerSet computerSet = new ComputerSet(index, user, partList, new ArrayList<>(){{
+                add(new Link(uri(ComputerSetController.class, "getComputerSet", index).toString(), "self"));
+                add(new Link(uri(UsersController.class, "getUser", user.getId()).toString(), "user"));
+                for(Part part : partList) {
+                    add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), part.getType().getKey()));
+                }
+            }});
             computerSets.put(computerSet.getId(), computerSet);
 
         }

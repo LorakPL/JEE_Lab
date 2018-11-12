@@ -14,4 +14,5 @@ public class ComputerSet implements Serializable {
     private Integer id;
     private User user;
     List<Part> parts;
+    List<Link> links;
 }
