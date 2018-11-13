@@ -116,29 +116,6 @@
       </td>
       <td *ngIf="computerSet.parts[7]">{{computerSet.parts[7].name}}</td>
     </tr>
-
-    <!--
-    Płyta główna
-    Karta graficzna
-    Dysk twardy
-    Pamięć RAM
-    Obudowa
-    Chłodzenie
-    Zasilacz
-    Procesor
-
-    <tr *ngFor="let part of computerSet.parts;let i = index;">
-    <td>{{getType(part.type)}}</td>
-    <td>
-      <select [(ngModel)]="computerSet.parts[i]" name="part" class="form-control">
-        <option *ngFor="let part of getPartsByType(computerSet.parts[i].type)" [ngValue]="part">
-          {{part.name}}
-        </option>
-      </select>
-    </td>
-    </tr>
-    -->
-
   </table>
 
   <button type="button" class="btn btn-primary" (click)="save()">Zapisz</button>

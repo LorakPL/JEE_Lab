@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ViewService} from '../../services/view.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Part} from '../../model/part';
-import {PartType} from '../../model/partType';
+import {Part} from '../../../model/part';
+import {PartType} from '../../../model/partType';
+import {PartService} from '../services/part.service';
 
 @Component({
   selector: 'app-edit-part',
@@ -14,20 +14,20 @@ export class EditPartComponent implements OnInit {
   part: Part;
   availableTypes: any[];
 
-  constructor(private viewService: ViewService,
+  constructor(private partService: PartService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id == null) {
-      this.part = {id: null, name: '', price: '', type: null};
+    const link = this.route.snapshot.paramMap.get('link');
+    if (link == null) {
+      this.part = new Part();
     } else {
-      this.viewService.findPart(Number(id))
+      this.partService.findPart(String(link))
         .subscribe(part => this.part = part);
     }
 
-    this.viewService.getAllPartType(PartType.GRAPHIC_CARD)
+    this.partService.getAllPartType(PartType.GRAPHIC_CARD)
       .subscribe(partTypes => this.availableTypes = partTypes);
   }
 
@@ -41,7 +41,7 @@ export class EditPartComponent implements OnInit {
     } else if (!this.part.price.match('^\\d+$')) {
       alert("Proszę wprowadzić poprawne dane");
     } else {
-      this.viewService.savePart(this.part)
+      this.partService.savePart(this.part)
         .subscribe(() => this.router.navigateByUrl('/partsLink'));
     }
   }

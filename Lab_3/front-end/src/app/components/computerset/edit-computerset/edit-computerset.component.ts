@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewService} from '../../services/view.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PartType} from '../../model/partType';
-import {ComputerSet} from '../../model/computerSet';
-import {User} from '../../model/user';
+import {PartType} from '../../../model/partType';
+import {ComputerSet} from '../../../model/computerSet';
+import {ComputersetService} from '../services/computerset.service';
+import {SharedService} from '../../../shared/services/shared.service';
+import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-edit-computerset',
@@ -16,23 +17,25 @@ export class EditComputersetComponent implements OnInit {
   availableParts: any[];
   availableUsers: any[];
 
-  constructor(private viewService: ViewService,
+  constructor(private computersetService: ComputersetService,
+              private sharedService: SharedService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id == null) {
-      this.computerSet = {id: null, user: new User(), parts: []};
+    const link = this.route.snapshot.paramMap.get('link');
+    if (link == null) {
+      this.computerSet = new ComputerSet();
+      // this.computerSet = {id: null, user: new User(), parts: [], links: []};
     } else {
-      this.viewService.findComputerSet(Number(id))
+      this.computersetService.findComputerSet(String(link))
         .subscribe(computerSet => this.computerSet = computerSet);
     }
 
-    this.viewService.findAllParts()
+    this.sharedService.findAllParts()
       .subscribe(parts => this.availableParts = parts);
 
-    this.viewService.findAllUsers()
+    this.sharedService.findAllUsers()
       .subscribe(users => this.availableUsers = users);
   }
 
@@ -51,8 +54,9 @@ export class EditComputersetComponent implements OnInit {
     if(!this.computerSet.user || !(this.computerSet.parts.length > 7)) {
       alert("Proszę wprowadzić wszystkie dane");
     } else {
-      this.viewService.saveComputerSet(this.computerSet)
+      this.computersetService.saveComputerSet(this.computerSet)
         .subscribe(() => this.router.navigateByUrl('/computerSetsLink'));
+      console.log(this.computerSet);
     }
   }
 

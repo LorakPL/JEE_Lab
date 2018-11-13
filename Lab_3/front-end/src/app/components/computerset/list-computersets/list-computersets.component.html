@@ -1,5 +1,5 @@
 <table class="table table-striped table-hover">
-  <tr *ngFor="let computerSet of computerSets | async">
+  <tr *ngFor="let computerSet of computerSets">
     <td>
       {{computerSet.id}}
     </td>
@@ -19,11 +19,11 @@
     </td>
 
     <td>
-      <button class="btn btn-default" [routerLink]="['/computerSetsLink', computerSet.id]">Pokaż</button>
+      <button class="btn btn-default" [routerLink]="['/computerSetsLink', computerSet.links[0].link]">Pokaż</button>
     </td>
 
     <td>
-      <button class="btn btn-default" [routerLink]="['/computerSetsLink', computerSet.id, 'edit']">Edytuj</button>
+      <button class="btn btn-default" [routerLink]="['/computerSetsLink', computerSet.links[0].link, 'edit']">Edytuj</button>
     </td>
 
     <td>

@@ -17,11 +17,11 @@
     </td>
 
     <td>
-      <button class="btn btn-default" [routerLink]="['usersLink', user.id]">Pokaż</button>
+      <button class="btn btn-default" [routerLink]="['usersLink', user.links[0].link]">Pokaż</button>
     </td>
 
     <td>
-      <button class="btn btn-default" [routerLink]="['usersLink', user.id, 'edit']">Edytuj</button>
+      <button class="btn btn-primary" [routerLink]="['usersLink', user.links[0].link, 'edit']">Edytuj</button>
     </td>
 
     <td>

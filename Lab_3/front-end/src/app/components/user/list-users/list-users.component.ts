@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../model/user';
-import {ViewService} from '../../services/view.service';
+import {User} from '../../../model/user';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-list-users',
@@ -12,16 +12,15 @@ export class ListUsersComponent implements OnInit {
 
   users: Observable<User[]>;
 
-  constructor(private viewService: ViewService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.users = this.viewService.findAllUsers();
+    this.users = this.userService.findAllUsers();
+    this.users.subscribe(res => console.log(res));
   }
 
   remove(user: User) {
-    this.viewService.removeUser(user)
-      .subscribe(() => this.ngOnInit());
+    this.userService.removeUser(user.links[0].link).subscribe(() => this.ngOnInit());
   }
 
 }

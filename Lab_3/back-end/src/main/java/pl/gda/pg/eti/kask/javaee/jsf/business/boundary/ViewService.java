@@ -215,6 +215,9 @@ public class ViewService implements Serializable {
                     user.setId(users.lastKey() + 1);
                 }
             }
+            user.setLinks(new ArrayList<>(){{
+                add(new Link(uri(UsersController.class, "getUser", user.getId()).toString(), "self"));
+            }});
         }
 
         users.put(user.getId(), user);
@@ -233,6 +236,9 @@ public class ViewService implements Serializable {
                     part.setId(parts.lastKey() + 1);
                 }
             }
+            part.setLinks(new ArrayList<>(){{
+                add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), "self"));
+            }});
         }
 
         parts.put(part.getId(), part);
@@ -251,6 +257,14 @@ public class ViewService implements Serializable {
                     computerSet.setId(computerSets.lastKey() + 1);
                 }
             }
+
+            computerSet.setLinks(new ArrayList<>(){{
+                add(new Link(uri(ComputerSetController.class, "getComputerSet", computerSet.getId()).toString(), "self"));
+                add(new Link(uri(UsersController.class, "getUser", computerSet.getUser().getId()).toString(), "user"));
+                for(Part part : computerSet.getParts()) {
+                    add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), part.getType().getKey()));
+                }
+            }});
         }
 
         computerSets.put(computerSet.getId(), computerSet);
@@ -317,5 +331,14 @@ public class ViewService implements Serializable {
             }
         }
         return computerSets;
+    }
+
+    public void updatePartsLinks() {
+        for(Part part : parts.values()) {
+            part.setLinks(new ArrayList<>(){{
+                add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), "self"));
+                add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", part.getId()).toString(), "computerSets"));
+            }});
+        }
     }
 }

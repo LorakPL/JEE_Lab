@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ViewService} from '../../services/view.service';
-import {User} from '../../model/user';
+import {User} from '../../../model/user';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -12,18 +12,17 @@ export class EditUserComponent implements OnInit {
 
   user: User;
 
-  constructor(private viewService: ViewService,
+  constructor(private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    if (id == null) {
-      this.user = {id: null, username: '', name: '', secondName: ''};
+    const link = this.route.snapshot.paramMap.get('link');
+    if (link == null) {
+      this.user = new User();
     } else {
-      this.viewService.findUser(Number(id))
+      this.userService.findUser(String(link))
         .subscribe(user => this.user = user);
     }
   }
@@ -34,7 +33,8 @@ export class EditUserComponent implements OnInit {
     } else if (this.user.name.match(/\d+/g) || this.user.secondName.match(/\d+/g)) {
       alert("Proszę wprowadzić poprawne dane");
     } else {
-      this.viewService.saveUser(this.user)
+      console.log(this.user);
+      this.userService.saveUser(this.user)
         .subscribe(() => this.router.navigateByUrl(''));
     }
   }

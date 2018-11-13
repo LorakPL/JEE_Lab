@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewService} from '../../services/view.service';
 import {Observable} from 'rxjs/Observable';
-import {Part} from '../../model/part';
-import {PartType} from '../../model/partType';
+import {Part} from '../../../model/part';
+import {PartType} from '../../../model/partType';
+import {PartService} from '../services/part.service';
 
 @Component({
   selector: 'app-list-parts',
@@ -13,15 +13,15 @@ export class ListPartsComponent implements OnInit {
 
   parts: Observable<Part[]>;
 
-  constructor(private viewService: ViewService) { }
+  constructor(private partService: PartService) { }
 
   ngOnInit() {
-    this.parts = this.viewService.findAllParts();
+    this.parts = this.partService.findAllParts();
+    this.parts.subscribe(res => console.log(res));
   }
 
   remove(part: Part) {
-    this.viewService.removePart(part)
-      .subscribe(() => this.ngOnInit());
+    this.partService.removePart(part.links[0].link).subscribe(() => this.ngOnInit());
   }
 
   getType(data) {

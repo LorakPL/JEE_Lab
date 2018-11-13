@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {User} from '../../model/user';
-import {ViewService} from '../../services/view.service';
+import {User} from '../../../model/user';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-view-user',
@@ -12,13 +12,13 @@ export class ViewUserComponent implements OnInit {
 
   user: User;
 
-  constructor(private viewService: ViewService,
+  constructor(private userService: UserService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.viewService.findUser(Number(id)).subscribe(user => this.user = user);
+    const link = this.route.snapshot.paramMap.get('link');
+    this.userService.findUser(String(link)).subscribe(user => this.user = user);
   }
 
 }
