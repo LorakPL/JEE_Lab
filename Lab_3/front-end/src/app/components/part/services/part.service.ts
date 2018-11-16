@@ -9,10 +9,6 @@ export class PartService {
 
   constructor(private http: HttpClient) {}
 
-  findAllParts(): Observable<Part[]> {
-    return this.http.get<Part[]>('api/parts');
-  }
-
   removePart(link: string): Observable<any> {
     return this.http.delete('api/' + link);
   }
@@ -21,8 +17,8 @@ export class PartService {
     return this.http.get<Part>('api/' + link);
   }
 
-  getAllPartType(type: PartType): Observable<PartType[]> {
-    return this.http.get<PartType[]>(`api/parts/partType/${type}`);
+  getAllPartType(): Observable<PartType[]> {
+    return this.http.get<PartType[]>('api/parts/partType');
   }
 
   savePart(part: Part): Observable<any> {

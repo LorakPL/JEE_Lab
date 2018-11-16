@@ -4,7 +4,6 @@ import {PartType} from '../../../model/partType';
 import {ComputerSet} from '../../../model/computerSet';
 import {ComputersetService} from '../services/computerset.service';
 import {SharedService} from '../../../shared/services/shared.service';
-import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-edit-computerset',
@@ -16,6 +15,7 @@ export class EditComputersetComponent implements OnInit {
   computerSet: ComputerSet;
   availableParts: any[];
   availableUsers: any[];
+  newComputerSet = true;
 
   constructor(private computersetService: ComputersetService,
               private sharedService: SharedService,
@@ -26,10 +26,11 @@ export class EditComputersetComponent implements OnInit {
     const link = this.route.snapshot.paramMap.get('link');
     if (link == null) {
       this.computerSet = new ComputerSet();
-      // this.computerSet = {id: null, user: new User(), parts: [], links: []};
+      this.newComputerSet = true;
     } else {
       this.computersetService.findComputerSet(String(link))
         .subscribe(computerSet => this.computerSet = computerSet);
+      this.newComputerSet = false;
     }
 
     this.sharedService.findAllParts()

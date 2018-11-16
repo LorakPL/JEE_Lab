@@ -35,15 +35,21 @@ public class ViewService implements Serializable {
     private void createUsers() {
         User user1 = new User(1, "jan.nowak@gmail.com", "Jan", "Nowak", new ArrayList<>(){{
             add(new Link(uri(UsersController.class, "getUser", 1).toString(), "self"));
+            add(new Link(uri(UsersController.class, "deleteUser", 1).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByUserId", 1).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByUserId", 1).toString(), "deleteComputerSets"));
         }});
         User user2 = new User(2, "adam.kowalski@gmail.com", "Adam", "Kowalski", new ArrayList<>(){{
             add(new Link(uri(UsersController.class, "getUser", 2).toString(), "self"));
+            add(new Link(uri(UsersController.class, "deleteUser", 2).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByUserId", 2).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByUserId", 2).toString(), "deleteComputerSets"));
         }});
         User user3 = new User(3, "piotr.zielinski@gmail.com", "Piotr", "Zieliński", new ArrayList<>(){{
             add(new Link(uri(UsersController.class, "getUser", 3).toString(), "self"));
+            add(new Link(uri(UsersController.class, "deleteUser", 3).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByUserId", 3).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByUserId", 3).toString(), "deleteComputerSets"));
         }});
 
         users.put(user1.getId(), user1);
@@ -54,67 +60,99 @@ public class ViewService implements Serializable {
     private void createParts() {
         Part part1 = new Part(1, "Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE, new ArrayList<Link>(){{
             add(new Link(uri(PartsController.class, "getPart", 1).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 1).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 1).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 1).toString(), "deleteComputerSets"));
         }});
         Part part2 = new Part(2, "Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 2).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 2).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 2).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 2).toString(), "deleteComputerSets"));
         }});
         Part part3 = new Part(3, "MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 3).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 3).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 3).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 3).toString(), "deleteComputerSets"));
         }});
         Part part4 = new Part(4, "Gigabyte GeForce GTX 1060 WindForce II OC 6GB GDDR5", "1199", PartType.GRAPHIC_CARD, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 4).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 4).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 4).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 4).toString(), "deleteComputerSets"));
         }});
         Part part5 = new Part(5, "Intel i7-7700 3.60GHz 8MB BOX", "1599", PartType.PROCESSOR, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 5).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 5).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 5).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 5).toString(), "deleteComputerSets"));
         }});
         Part part6 = new Part(6, "Intel i7-8700K 3.70GHz 12MB", "2349", PartType.PROCESSOR, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 6).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 6).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 6).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 6).toString(), "deleteComputerSets"));
         }});
         Part part7 = new Part(7, "Gigabyte Z370 AORUS Gaming K3", "529", PartType.MOTHERBOARD, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 7).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 7).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 7).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 7).toString(), "deleteComputerSets"));
         }});
         Part part8 = new Part(8, "ASRock Z370 Pro4", "439", PartType.MOTHERBOARD, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 8).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 8).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 8).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 8).toString(), "deleteComputerSets"));
         }});
         Part part9 = new Part(9, "HyperX 8GB 2400MHz Fury Black CL15", "319", PartType.RAM, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 9).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 9).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 9).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 9).toString(), "deleteComputerSets"));
         }});
         Part part10 = new Part(10, "G.SKILL 16GB 3000MHz Aegis CL16 (2x8GB)", "589", PartType.RAM, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 10).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 10).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 10).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 10).toString(), "deleteComputerSets"));
         }});
         Part part11 = new Part(11, "Zalman Z3 PLUS USB 3.0 czarna", "159", PartType.CASE, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 11).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 11).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 11).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 11).toString(), "deleteComputerSets"));
         }});
         Part part12 = new Part(12, "SilentiumPC Regnum RG4T RGB Pure Black", "229", PartType.CASE, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 12).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 12).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 12).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 12).toString(), "deleteComputerSets"));
         }});
         Part part13 = new Part(13, "SilentiumPC 600W Vero L2 Bronze", "209", PartType.POWER_SUPPLY, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 13).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 13).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 13).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 12).toString(), "deleteComputerSets"));
         }});
         Part part14 = new Part(14, "be quiet! System Power 9 500W", "209", PartType.POWER_SUPPLY, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 14).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 14).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 14).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 14).toString(), "deleteComputerSets"));
         }});
         Part part15 = new Part(15, "Thermalright HR-02 - Macho Rev. B", "209", PartType.COOLING, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 15).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 15).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 15).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 15).toString(), "deleteComputerSets"));
         }});
         Part part16 = new Part(16, "SilentiumPC Fortis 3 HE1425 v2", "149", PartType.COOLING, new ArrayList<>(){{
             add(new Link(uri(PartsController.class, "getPart", 16).toString(), "self"));
+            add(new Link(uri(PartsController.class, "deletePart", 16).toString(), "deleteSelf"));
             add(new Link(uri(ComputerSetController.class, "getAllComputerSetsByPartId", 16).toString(), "computerSets"));
+            add(new Link(uri(ComputerSetController.class, "deleteAllComputerSetsByPartId", 16).toString(), "deleteComputerSets"));
         }});
 
         parts.put(part1.getId(), part1);
@@ -150,6 +188,7 @@ public class ViewService implements Serializable {
             User user = getRandomUser();
             ComputerSet computerSet = new ComputerSet(index, user, partList, new ArrayList<>(){{
                 add(new Link(uri(ComputerSetController.class, "getComputerSet", index).toString(), "self"));
+                add(new Link(uri(ComputerSetController.class, "deleteComputerSet", index).toString(), "deleteSelf"));
                 add(new Link(uri(UsersController.class, "getUser", user.getId()).toString(), "user"));
                 for(Part part : partList) {
                     add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), part.getType().getKey()));
@@ -217,6 +256,7 @@ public class ViewService implements Serializable {
             }
             user.setLinks(new ArrayList<>(){{
                 add(new Link(uri(UsersController.class, "getUser", user.getId()).toString(), "self"));
+                add(new Link(uri(UsersController.class, "deleteUser", user.getId()).toString(), "deleteSelf"));
             }});
         }
 
@@ -238,6 +278,7 @@ public class ViewService implements Serializable {
             }
             part.setLinks(new ArrayList<>(){{
                 add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), "self"));
+                add(new Link(uri(PartsController.class, "deletePart", part.getId()).toString(), "deleteSelf"));
             }});
         }
 
@@ -260,6 +301,7 @@ public class ViewService implements Serializable {
 
             computerSet.setLinks(new ArrayList<>(){{
                 add(new Link(uri(ComputerSetController.class, "getComputerSet", computerSet.getId()).toString(), "self"));
+                add(new Link(uri(ComputerSetController.class, "deleteComputerSet", computerSet.getId()).toString(), "deleteSelf"));
                 add(new Link(uri(UsersController.class, "getUser", computerSet.getUser().getId()).toString(), "user"));
                 for(Part part : computerSet.getParts()) {
                     add(new Link(uri(PartsController.class, "getPart", part.getId()).toString(), part.getType().getKey()));

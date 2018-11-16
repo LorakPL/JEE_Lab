@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {Part} from '../../../model/part';
 import {PartType} from '../../../model/partType';
 import {PartService} from '../services/part.service';
+import {SharedService} from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-list-parts',
@@ -13,10 +14,10 @@ export class ListPartsComponent implements OnInit {
 
   parts: Observable<Part[]>;
 
-  constructor(private partService: PartService) { }
+  constructor(private partService: PartService, private sharedService: SharedService) { }
 
   ngOnInit() {
-    this.parts = this.partService.findAllParts();
+    this.parts = this.sharedService.findAllParts();
     this.parts.subscribe(res => console.log(res));
   }
 

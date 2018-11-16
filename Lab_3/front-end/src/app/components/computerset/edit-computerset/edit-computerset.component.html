@@ -10,7 +10,7 @@
           </option>
         </select>
       </td>
-      <td>{{computerSet.user.username}}</td>
+      <td *ngIf="computerSet.user && newComputerSet">{{computerSet.user.username}}</td>
     </tr>
 
     <tr>
@@ -23,7 +23,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[0]">{{computerSet.parts[0].name}}</td>
+      <td *ngIf="computerSet.parts[0] && newComputerSet">{{computerSet.parts[0].name}}</td>
     </tr>
 
     <tr>
@@ -36,7 +36,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[1]">{{computerSet.parts[1].name}}</td>
+      <td *ngIf="computerSet.parts[1] && newComputerSet">{{computerSet.parts[1].name}}</td>
     </tr>
 
     <tr>
@@ -49,7 +49,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[2]">{{computerSet.parts[2].name}}</td>
+      <td *ngIf="computerSet.parts[2] && newComputerSet">{{computerSet.parts[2].name}}</td>
     </tr>
 
     <tr>
@@ -62,7 +62,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[3]">{{computerSet.parts[3].name}}</td>
+      <td *ngIf="computerSet.parts[3] && newComputerSet">{{computerSet.parts[3].name}}</td>
     </tr>
 
     <tr>
@@ -75,7 +75,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[4]">{{computerSet.parts[4].name}}</td>
+      <td *ngIf="computerSet.parts[4] && newComputerSet">{{computerSet.parts[4].name}}</td>
     </tr>
 
     <tr>
@@ -88,7 +88,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[5]">{{computerSet.parts[5].name}}</td>
+      <td *ngIf="computerSet.parts[5] && newComputerSet">{{computerSet.parts[5].name}}</td>
     </tr>
 
     <tr>
@@ -101,7 +101,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[6]">{{computerSet.parts[6].name}}</td>
+      <td *ngIf="computerSet.parts[6] && newComputerSet">{{computerSet.parts[6].name}}</td>
     </tr>
 
     <tr>
@@ -114,7 +114,7 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[7]">{{computerSet.parts[7].name}}</td>
+      <td *ngIf="computerSet.parts[7] && newComputerSet">{{computerSet.parts[7].name}}</td>
     </tr>
   </table>
 

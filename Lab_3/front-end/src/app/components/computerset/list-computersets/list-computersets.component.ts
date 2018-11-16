@@ -5,6 +5,8 @@ import {PartType} from '../../../model/partType';
 import {Router} from '@angular/router';
 import {ComputersetService} from '../services/computerset.service';
 import {PaginatorObject} from '../../../model/PaginatorObject';
+import {User} from '../../../model/user';
+import {SharedService} from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-list-computersets',
@@ -18,7 +20,7 @@ export class ListComputersetsComponent implements OnInit {
   enoughParts: boolean;
   enoughUsers: boolean;
 
-  constructor(private computersetService: ComputersetService, private router: Router) {
+  constructor(private computersetService: ComputersetService, private router: Router, private shardedService: SharedService) {
   }
 
   ngOnInit() {
@@ -38,6 +40,15 @@ export class ListComputersetsComponent implements OnInit {
 
   getType(data) {
     return PartType[data];
+  }
+
+  getUserName(link: string) {
+    var user = new User();
+    this.shardedService.findUser(link).subscribe(res => {
+      user = res;
+      return user.name;
+    });
+    // return user.name;
   }
 
   moveToEditSite() {

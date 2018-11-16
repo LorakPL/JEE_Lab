@@ -25,7 +25,7 @@ public class PartsController {
     }
 
     @GET
-    @Path("/partType/{type}")
+    @Path("/partType")
     public Collection<PartType> getAllPartType() {
         return viewService.getAllPartTypes();
     }

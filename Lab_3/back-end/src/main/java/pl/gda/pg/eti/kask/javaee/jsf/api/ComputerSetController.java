@@ -17,13 +17,6 @@ public class ComputerSetController {
     @Inject
     ViewService viewService;
 
-    /*
-    @GET
-    public Collection<ComputerSet> getAllComputerSets() {
-        return viewService.findAllComputerSets();
-    }
-    */
-
     @GET
     @Path("")
     public ComputerSets getAllComputerSets(@QueryParam("limit") Integer limit, @QueryParam("start") Integer start) {
@@ -31,51 +24,57 @@ public class ComputerSetController {
         Collection<ComputerSet> computerSets = new LinkedHashSet<>();
         ComputerSets computerSetsObj = new ComputerSets();
 
-        if (limit != null && (start != null && start < computerSetsAll.size())) {
-            int returnSize = ((start + limit) > computerSetsAll.size()) ? computerSetsAll.size() : (start + limit);
-            Iterator<ComputerSet> iterator = computerSetsAll.iterator();
+        if(limit == null || limit >= computerSetsAll.size()) {
+            computerSetsObj.setComputerSets(computerSetsAll);
+        } else if(limit < 1 || (start != null && start >= computerSetsAll.size())) {
+            computerSetsObj.setComputerSets(new ArrayList<>());
+        } else {
+            if (limit != null && (start != null && start < computerSetsAll.size())) {
+                int returnSize = ((start + limit) > computerSetsAll.size()) ? computerSetsAll.size() : (start + limit);
+                Iterator<ComputerSet> iterator = computerSetsAll.iterator();
 
-            while (returnSize > 0 && iterator.hasNext()) {
-                if (returnSize <= start) {
-                    computerSets.add(iterator.next());
-                } else {
-                    iterator.next();
+                while (returnSize > 0 && iterator.hasNext()) {
+                    if (returnSize <= start) {
+                        computerSets.add(iterator.next());
+                    } else {
+                        iterator.next();
+                    }
+
+                    returnSize--;
                 }
 
-                returnSize--;
+                Map<String, String> queryParams = new HashMap<>();
+                queryParams.put("limit", limit.toString());
+                Integer startPrev = start - limit;
+                if (startPrev > 0) {
+                    queryParams.put("start", startPrev.toString());
+                }
+                computerSetsObj.getLinks().add(new Link(uriWithParams(ComputerSetController.class, "getAllComputerSets", queryParams).toString(), "computerSetsPrevPage"));
+
+                queryParams.clear();
+                queryParams.put("limit", limit.toString());
+                start += limit;
+                queryParams.put("start", start.toString());
+                computerSetsObj.getLinks().add(new Link(uriWithParams(ComputerSetController.class, "getAllComputerSets", queryParams).toString(), "computerSetsNextPage"));
+            } else if (limit != null) {
+                int returnSize = (limit > computerSetsAll.size()) ? computerSetsAll.size() : limit;
+                Iterator<ComputerSet> iterator = computerSetsAll.iterator();
+
+                while (returnSize > 0 && iterator.hasNext()) {
+                    computerSets.add(iterator.next());
+                    returnSize--;
+                }
+
+                Map<String, String> queryParams = new HashMap<>();
+                queryParams.put("limit", limit.toString());
+                queryParams.put("start", limit.toString());
+
+                computerSetsObj.getLinks().add(new Link(uriWithParams(ComputerSetController.class, "getAllComputerSets", queryParams).toString(), "computerSetsNextPage"));
+            } else {
+                computerSets = computerSetsAll;
             }
-
-            Map<String, String> queryParams = new HashMap<>();
-            queryParams.put("limit", limit.toString());
-            Integer startPrev = start - limit;
-            if (startPrev > 0) {
-                queryParams.put("start", startPrev.toString());
-            }
-            computerSetsObj.getLinks().add(new Link(uriWithParams(ComputerSetController.class, "getAllComputerSets", queryParams).toString(), "computerSetsPrevPage"));
-
-            queryParams.clear();
-            queryParams.put("limit", limit.toString());
-            start += limit;
-            queryParams.put("start", start.toString());
-            computerSetsObj.getLinks().add(new Link(uriWithParams(ComputerSetController.class, "getAllComputerSets", queryParams).toString(), "computerSetsNextPage"));
-        } else if (limit != null) {
-            int returnSize = (limit > computerSetsAll.size()) ? computerSetsAll.size() : limit;
-            Iterator<ComputerSet> iterator = computerSetsAll.iterator();
-
-            while (returnSize > 0 && iterator.hasNext()) {
-                computerSets.add(iterator.next());
-                returnSize--;
-            }
-
-            Map<String, String> queryParams = new HashMap<>();
-            queryParams.put("limit", limit.toString());
-            queryParams.put("start", limit.toString());
-
-            computerSetsObj.getLinks().add(new Link(uriWithParams(ComputerSetController.class, "getAllComputerSets", queryParams).toString(), "computerSetsNextPage"));
-        } else {
-            computerSets = computerSetsAll;
+            computerSetsObj.setComputerSets(computerSets);
         }
-        computerSetsObj.setComputerSets(computerSets);
 
         return computerSetsObj;
     }

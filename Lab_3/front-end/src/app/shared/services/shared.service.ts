@@ -16,4 +16,8 @@ export class SharedService {
   findAllParts(): Observable<Part[]> {
     return this.http.get<Part[]>('api/parts');
   }
+
+  findUser(link: string): Observable<User> {
+    return this.http.get<User>('api/' + link);
+  }
 }

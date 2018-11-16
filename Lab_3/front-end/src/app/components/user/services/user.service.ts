@@ -8,10 +8,6 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  findAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>('api/users');
-  }
-
   removeUser(link: string): Observable<any> {
     return this.http.delete('api/' + link);
   }

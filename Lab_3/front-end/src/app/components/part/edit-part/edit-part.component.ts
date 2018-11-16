@@ -27,7 +27,7 @@ export class EditPartComponent implements OnInit {
         .subscribe(part => this.part = part);
     }
 
-    this.partService.getAllPartType(PartType.GRAPHIC_CARD)
+    this.partService.getAllPartType()
       .subscribe(partTypes => this.availableTypes = partTypes);
   }
 
