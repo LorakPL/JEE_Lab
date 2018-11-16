@@ -1,0 +1,25 @@
+<table class="table table-striped table-hover">
+  <tr *ngFor="let computerSet of computerSets">
+    <td>
+      {{computerSet.id}}
+    </td>
+
+    <td>
+      {{computerSet.user.username}}
+    </td>
+
+    <td>
+      <table>
+        <tr *ngFor="let part of computerSet.parts">
+          <td>
+            <strong>{{getType(part.type)}}:</strong> {{part.name}}
+          </td>
+        </tr>
+      </table>
+    </td>
+
+  </tr>
+</table>
+
+<button [disabled]="prevButton" class="btn btn-primary" (click)="changePage()"> <- </button>
+<button [disabled]="nextButton" class="btn btn-primary" (click)="changePage()"> -> </button>
