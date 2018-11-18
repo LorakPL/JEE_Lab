@@ -1,5 +1,6 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.PartType;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
@@ -11,6 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @ApplicationScoped
 public class ViewService implements Serializable {
@@ -36,6 +38,12 @@ public class ViewService implements Serializable {
     @Transactional
     public void removeUser(User user) {
         user = em.merge(user);
+
+        List<ComputerSet> computerSets = new ArrayList<>(findAllComputerSetsByUserId(user.getId()));
+        for(ComputerSet computerSet : computerSets) {
+            removeComputerSet(computerSet);
+        }
+
         em.remove(user);
     }
 
@@ -48,6 +56,11 @@ public class ViewService implements Serializable {
         }
 
         return user;
+    }
+
+    public User getRandomUser() {
+        List<User> users = new ArrayList<>(findAllUsers());
+        return em.find(User.class, ThreadLocalRandom.current().nextInt(1, users.size() + 1));
     }
 
     public Collection<Part> findAllParts() {
@@ -79,5 +92,66 @@ public class ViewService implements Serializable {
     public Collection<PartType> getAllPartTypes() {
         List<PartType> enumValues = new ArrayList<PartType>(EnumSet.allOf(PartType.class));
         return Collections.synchronizedList(enumValues);
+    }
+
+    public Part getPartByType(PartType partType) {
+        TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_BY_TYPE, Part.class);
+        query.setParameter("partType", partType);
+        List<Part> parts = new ArrayList<>(query.getResultList());
+        return parts.get(ThreadLocalRandom.current().nextInt(0, parts.size()));
+    }
+
+    public Collection<ComputerSet> findAllComputerSets() {
+        TypedQuery<ComputerSet> query = em.createNamedQuery(ComputerSet.Queries.FIND_ALL, ComputerSet.class);
+        return query.getResultList();
+    }
+
+    public Collection<ComputerSet> findAllComputerSetsByUserId(Integer id) {
+        TypedQuery<ComputerSet> query = em.createNamedQuery(ComputerSet.Queries.FIND_ALL_BY_USER_ID, ComputerSet.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
+    public ComputerSet findComputerSet(int id) {
+        return em.find(ComputerSet.class, id);
+    }
+
+    @Transactional
+    public void removeComputerSet(ComputerSet computerSet) {
+        computerSet = em.merge(computerSet);
+        em.remove(computerSet);
+    }
+
+    @Transactional
+    public ComputerSet saveComputerSet(ComputerSet computerSet) {
+        if (computerSet.getId() == null) {
+            em.persist(computerSet);
+        } else {
+            computerSet = em.merge(computerSet);
+        }
+
+        return computerSet;
+    }
+
+    public boolean checkIfEnoughParts() {
+        List<Part> parts = new ArrayList<>(findAllParts());
+        TreeSet<PartType> partTypes = new TreeSet<>();
+        for (Part part: parts) {
+            partTypes.add(part.getType());
+        }
+        if(partTypes.size() < 8) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean checkIfEnoughUsers() {
+        List<User> users = new ArrayList<>(findAllUsers());
+        if(users.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

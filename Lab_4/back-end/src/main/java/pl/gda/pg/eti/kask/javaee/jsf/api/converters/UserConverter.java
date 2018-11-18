@@ -10,5 +10,4 @@ public class UserConverter extends AbstractEntityConverter<User> {
     public UserConverter() {
         super(User.class, User::getId, ViewService::findUser);
     }
-
 }

@@ -1,15 +1,19 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.control;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Calendar.FEBRUARY;
@@ -20,6 +24,9 @@ public class InitialFixture {
 
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    ViewService viewService;
 
     @Transactional
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -66,6 +73,20 @@ public class InitialFixture {
         em.persist(part15);
         em.persist(part16);
 
+
+        for(int i = 0; i < 10; i++) {
+            List<Part> partList = new ArrayList<>();
+            partList.add(viewService.getPartByType(PartType.MOTHERBOARD));
+            partList.add(viewService.getPartByType(PartType.GRAPHIC_CARD));
+            partList.add(viewService.getPartByType(PartType.HARD_DRIVE));
+            partList.add(viewService.getPartByType(PartType.RAM));
+            partList.add(viewService.getPartByType(PartType.CASE));
+            partList.add(viewService.getPartByType(PartType.COOLING));
+            partList.add(viewService.getPartByType(PartType.POWER_SUPPLY));
+            partList.add(viewService.getPartByType(PartType.PROCESSOR));
+            ComputerSet computerSet = new ComputerSet(viewService.getRandomUser(), partList);
+            em.persist(computerSet);
+        }
 
 
         /*

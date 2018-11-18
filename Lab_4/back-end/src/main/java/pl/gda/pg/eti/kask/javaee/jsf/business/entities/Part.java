@@ -15,11 +15,13 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NamedQueries({
-        @NamedQuery(name = Part.Queries.FIND_ALL, query = "select p from Part p")
+        @NamedQuery(name = Part.Queries.FIND_ALL, query = "select p from Part p"),
+        @NamedQuery(name = Part.Queries.FIND_BY_TYPE, query = "select p from Part p where p.type =: partType")
 })
 public class Part implements Serializable {
     public static class Queries {
         public static final String FIND_ALL = "PART_FIND_ALL";
+        public static final String FIND_BY_TYPE = "PART_BY_TYPE";
     }
 
     @Id
