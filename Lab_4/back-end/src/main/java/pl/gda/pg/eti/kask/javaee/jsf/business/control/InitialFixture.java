@@ -1,8 +1,6 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.control;
 
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Author;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Book;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
@@ -33,6 +31,42 @@ public class InitialFixture {
         em.persist(user1);
         em.persist(user2);
         em.persist(user3);
+
+        Part part1 = new Part("Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
+        Part part2 = new Part("Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
+        Part part3 = new Part("MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD);
+        Part part4 = new Part("Gigabyte GeForce GTX 1060 WindForce II OC 6GB GDDR5", "1199", PartType.GRAPHIC_CARD);
+        Part part5 = new Part("Intel i7-7700 3.60GHz 8MB BOX", "1599", PartType.PROCESSOR);
+        Part part6 = new Part("Intel i7-8700K 3.70GHz 12MB", "2349", PartType.PROCESSOR);
+        Part part7 = new Part("Gigabyte Z370 AORUS Gaming K3", "529", PartType.MOTHERBOARD);
+        Part part8 = new Part("ASRock Z370 Pro4", "439", PartType.MOTHERBOARD);
+        Part part9 = new Part("HyperX 8GB 2400MHz Fury Black CL15", "319", PartType.RAM);
+        Part part10 = new Part("G.SKILL 16GB 3000MHz Aegis CL16 (2x8GB)", "589", PartType.RAM);
+        Part part11 = new Part("Zalman Z3 PLUS USB 3.0 czarna", "159", PartType.CASE);
+        Part part12 = new Part("SilentiumPC Regnum RG4T RGB Pure Black", "229", PartType.CASE);
+        Part part13 = new Part("SilentiumPC 600W Vero L2 Bronze", "209", PartType.POWER_SUPPLY);
+        Part part14 = new Part("be quiet! System Power 9 500W", "209", PartType.POWER_SUPPLY);
+        Part part15 = new Part("Thermalright HR-02 - Macho Rev. B", "209", PartType.COOLING);
+        Part part16 = new Part("SilentiumPC Fortis 3 HE1425 v2", "149", PartType.COOLING);
+
+        em.persist(part1);
+        em.persist(part2);
+        em.persist(part3);
+        em.persist(part4);
+        em.persist(part5);
+        em.persist(part6);
+        em.persist(part7);
+        em.persist(part8);
+        em.persist(part9);
+        em.persist(part10);
+        em.persist(part11);
+        em.persist(part12);
+        em.persist(part13);
+        em.persist(part14);
+        em.persist(part15);
+        em.persist(part16);
+
+
 
         /*
         Author a1 = new Author("Dmitrij", "Glukhovsky");

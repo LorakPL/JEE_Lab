@@ -1,5 +1,7 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.PartType;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.*;
 
 @ApplicationScoped
 public class ViewService implements Serializable {
@@ -46,5 +48,36 @@ public class ViewService implements Serializable {
         }
 
         return user;
+    }
+
+    public Collection<Part> findAllParts() {
+        TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_ALL, Part.class);
+        return query.getResultList();
+    }
+
+    public Part findPart(int id) {
+        return em.find(Part.class, id);
+    }
+
+    @Transactional
+    public void removePart(Part part) {
+        part = em.merge(part);
+        em.remove(part);
+    }
+
+    @Transactional
+    public Part savePart(Part part) {
+        if (part.getId() == null) {
+            em.persist(part);
+        } else {
+            part = em.merge(part);
+        }
+
+        return part;
+    }
+
+    public Collection<PartType> getAllPartTypes() {
+        List<PartType> enumValues = new ArrayList<PartType>(EnumSet.allOf(PartType.class));
+        return Collections.synchronizedList(enumValues);
     }
 }
