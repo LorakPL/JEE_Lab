@@ -1,0 +1,10 @@
+<table class="table table-striped table-hover">
+  <tr *ngFor="let author of authors | async">
+    <td>
+      {{author.id}}
+    </td>
+    <td>
+      {{author.name}} {{author.surname}}
+    </td>
+  </tr>
+</table>

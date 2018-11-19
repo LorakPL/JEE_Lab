@@ -1,0 +1,26 @@
+<table class="table table-striped" *ngIf="computerSet">
+  <tr>
+    <td>Identyfikator:</td>
+    <td>{{computerSet.id}}</td>
+  </tr>
+
+  <tr>
+    <td>Użytkownik:</td>
+    <td>{{computerSet.user.userName}}</td>
+  </tr>
+
+  <tr>
+    <td>Części:</td>
+    <td>
+      <table>
+        <tr *ngFor="let part of computerSet.parts">
+          <td>
+            <strong>{{getType(part.type)}}:</strong> {{part.name}}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<button class="btn btn-default" routerLink="/computerSetsLink">Powrót</button>
