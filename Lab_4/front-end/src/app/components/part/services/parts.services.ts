@@ -11,10 +11,6 @@ export class PartsService {
   constructor(private http: HttpClient) {
   }
 
-  findAllParts(): Observable<Part[]> {
-    return this.http.get<Part[]>('api/parts');
-  }
-
   getAllPartType(): Observable<PartType[]> {
     return this.http.get<PartType[]>('api/parts/partType');
   }

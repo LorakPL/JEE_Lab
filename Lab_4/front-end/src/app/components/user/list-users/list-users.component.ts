@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../../../model/user';
 import {UsersService} from '../services/users.service';
+import {SharedService} from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-list-user',
@@ -13,11 +14,11 @@ export class ListUsersComponent implements OnInit {
   users: Observable<User[]>;
   nameToFind = '';
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService, private sharedService: SharedService) {
   }
 
   ngOnInit() {
-    this.users = this.usersService.findAllUsers();
+    this.users = this.sharedService.findAllUsers();
   }
 
   remove(user: User) {
@@ -34,7 +35,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   all() {
-    this.users = this.usersService.findAllUsers();
+    this.users = this.sharedService.findAllUsers();
   }
 
 }
