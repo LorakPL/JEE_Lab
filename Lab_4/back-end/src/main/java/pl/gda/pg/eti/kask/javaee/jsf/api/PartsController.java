@@ -56,6 +56,10 @@ public class PartsController {
             return status(Response.Status.BAD_REQUEST).build();
         }
 
+        if(originalPart.getType() != updatedPart.getType()) {
+            viewService.removeComputerSetsByPart(updatedPart);
+        }
+
         viewService.savePart(updatedPart);
         return ok().build();
     }

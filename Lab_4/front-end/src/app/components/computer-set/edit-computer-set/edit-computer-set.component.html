@@ -10,7 +10,8 @@
           </option>
         </select>
       </td>
-      <td>{{computerSet.user.userName}}</td>
+      <td [hidden]="new">{{computerSet.user.userName}}</td>
+      <td class="errorText">{{userError}}</td>
     </tr>
 
     <tr>
@@ -23,7 +24,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[0]">{{computerSet.parts[0].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[0]">{{computerSet.parts[0].name}}</td>
+      <td class="errorText">{{motherboardError}}</td>
     </tr>
 
     <tr>
@@ -36,7 +38,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[1]">{{computerSet.parts[1].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[1]">{{computerSet.parts[1].name}}</td>
+      <td class="errorText">{{graphicCardError}}</td>
     </tr>
 
     <tr>
@@ -49,7 +52,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[2]">{{computerSet.parts[2].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[2]">{{computerSet.parts[2].name}}</td>
+      <td class="errorText">{{hardDriveError}}</td>
     </tr>
 
     <tr>
@@ -62,7 +66,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[3]">{{computerSet.parts[3].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[3]">{{computerSet.parts[3].name}}</td>
+      <td class="errorText">{{ramError}}</td>
     </tr>
 
     <tr>
@@ -75,7 +80,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[4]">{{computerSet.parts[4].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[4]">{{computerSet.parts[4].name}}</td>
+      <td class="errorText">{{caseError}}</td>
     </tr>
 
     <tr>
@@ -88,7 +94,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[5]">{{computerSet.parts[5].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[5]">{{computerSet.parts[5].name}}</td>
+      <td class="errorText">{{coolingError}}</td>
     </tr>
 
     <tr>
@@ -101,7 +108,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[6]">{{computerSet.parts[6].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[6]">{{computerSet.parts[6].name}}</td>
+      <td class="errorText">{{powerSupplyError}}</td>
     </tr>
 
     <tr>
@@ -114,7 +122,8 @@
           </option>
         </select>
       </td>
-      <td *ngIf="computerSet.parts[7]">{{computerSet.parts[7].name}}</td>
+      <td [hidden]="new" *ngIf="computerSet.parts[7]">{{computerSet.parts[7].name}}</td>
+      <td class="errorText">{{processorError}}</td>
     </tr>
 
   </table>

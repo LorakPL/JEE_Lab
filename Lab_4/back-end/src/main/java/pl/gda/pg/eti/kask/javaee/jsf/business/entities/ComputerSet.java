@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -33,11 +35,12 @@ public class ComputerSet implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
+    @Valid
     @ManyToOne(cascade = {MERGE, REFRESH})
     private User user;
 
-    @Size(min = 8)
+    @Valid
+    @Size(min = 8, max = 8)
     @ManyToMany(cascade = {MERGE, REFRESH})
     List<Part> parts = new ArrayList<>();
 

@@ -52,4 +52,12 @@ public class ComputerSetsController {
         viewService.saveComputerSet(updatedComputerSet);
         return ok().build();
     }
+
+    @GET
+    @Path("/checkIfEnoughParts")
+    public boolean checkIfEnoughParts() {return this.viewService.checkIfEnoughParts();}
+
+    @GET
+    @Path("/checkIfEnoughUsers")
+    public boolean checkIfEnoughUsers() {return this.viewService.checkIfEnoughUsers();}
 }

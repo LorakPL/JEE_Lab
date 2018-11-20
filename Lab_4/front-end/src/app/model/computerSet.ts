@@ -4,6 +4,6 @@ import {Part} from './part';
 export class ComputerSet {
   constructor() {}
   id: number;
-  user: User;
-  parts: Part[];
+  user: User = new User();
+  parts: Part[] = [];
 }

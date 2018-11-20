@@ -38,12 +38,10 @@ public class ViewService implements Serializable {
     @Transactional
     public void removeUser(User user) {
         user = em.merge(user);
-
         List<ComputerSet> computerSets = new ArrayList<>(findAllComputerSetsByUserId(user.getId()));
         for(ComputerSet computerSet : computerSets) {
             removeComputerSet(computerSet);
         }
-
         em.remove(user);
     }
 
@@ -75,6 +73,7 @@ public class ViewService implements Serializable {
     @Transactional
     public void removePart(Part part) {
         part = em.merge(part);
+        removeComputerSetsByPart(part);
         em.remove(part);
     }
 
@@ -110,6 +109,19 @@ public class ViewService implements Serializable {
         TypedQuery<ComputerSet> query = em.createNamedQuery(ComputerSet.Queries.FIND_ALL_BY_USER_ID, ComputerSet.class);
         query.setParameter("id", id);
         return query.getResultList();
+    }
+
+    @Transactional
+    public void removeComputerSetsByPart(Part part) {
+        List<ComputerSet> ComputerSets = new ArrayList<>(findAllComputerSets());
+        for(ComputerSet computerSet : ComputerSets) {
+            for(Part partInComputerSetList : computerSet.getParts()) {
+                if(partInComputerSetList.getId().equals(part.getId())) {
+                    removeComputerSet(computerSet);
+                    break;
+                }
+            }
+        }
     }
 
     public ComputerSet findComputerSet(int id) {
