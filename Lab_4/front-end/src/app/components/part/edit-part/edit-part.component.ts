@@ -40,8 +40,6 @@ export class EditPartComponent implements OnInit {
     this.partsService.savePart(this.part).subscribe(
       () => this.router.navigateByUrl('/partsLink'),
       errorResponse => {
-        // console.log(errorResponse);
-        // alert('Niepoprawne dane w formularzu');
         (errorResponse.error.parameterViolations.some(res => res.path.includes('name'))) ?
           this.nameError = 'Wartość w polu nazwa musi się mieścić w przedziale 2 - 100 znaków' : this.nameError = '';
         (errorResponse.error.parameterViolations.some(res => res.path.includes('price'))) ?

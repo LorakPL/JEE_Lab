@@ -56,8 +56,6 @@ export class EditComputerSetComponent implements OnInit {
     this.computerSetService.saveComputerSet(this.computerSet).subscribe(
       () => this.router.navigateByUrl('/computerSetsLink'),
       errorResponse => {
-        // console.log(errorResponse);
-        // alert('Niepoprawne dane w formularzu');
         (errorResponse.error.parameterViolations.some(res => res.path.includes('user'))) ?
           this.userError = 'Wartość w polu użytkownik nie może być pusta' : this.userError = '';
         (errorResponse.error.parameterViolations.some(res => res.path.includes('parts'))) ? this.validateParts() : this.clearParts();
@@ -69,7 +67,7 @@ export class EditComputerSetComponent implements OnInit {
     !this.computerSet.parts[1] ? this.graphicCardError = 'Proszę wybrać kartę graficzną' : this.graphicCardError = '';
     !this.computerSet.parts[2] ? this.hardDriveError = 'Proszę wybrać dysk twardy' : this.hardDriveError = '';
     !this.computerSet.parts[3] ? this.ramError = 'Proszę wybrać pamięć ram' : this.ramError = '';
-    !this.computerSet.parts[4] ? this.caseError = 'Proszę wybrać pamięć ram' : this.caseError = '';
+    !this.computerSet.parts[4] ? this.caseError = 'Proszę wybrać pamięć obudowę' : this.caseError = '';
     !this.computerSet.parts[5] ? this.coolingError = 'Proszę wybrać chłodzenie' : this.coolingError = '';
     !this.computerSet.parts[6] ? this.powerSupplyError = 'Proszę wybrać zasilacz' : this.powerSupplyError = '';
     !this.computerSet.parts[7] ? this.processorError = 'Proszę wybrać procesor' : this.processorError = '';

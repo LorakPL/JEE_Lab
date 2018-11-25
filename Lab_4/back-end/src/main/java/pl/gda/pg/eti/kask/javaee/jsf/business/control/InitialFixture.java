@@ -87,23 +87,5 @@ public class InitialFixture {
             ComputerSet computerSet = new ComputerSet(viewService.getRandomUser(), partList);
             em.persist(computerSet);
         }
-
-
-        /*
-        Author a1 = new Author("Dmitrij", "Glukhovsky");
-        Author a2 = new Author("Maja", "Kossakowska");
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(2010, FEBRUARY, 24);
-        Book book1 = new Book("Metro 2033", LocalDate.now(), asList(a1));
-
-        cal.set(2011, OCTOBER, 22);
-        Book book2 = new Book("Grillbar Galaktyka", LocalDate.now(), asList(a2));
-
-        em.persist(a1);
-        em.persist(a2);
-        em.persist(book1);
-        em.persist(book2);
-        */
     }
 }
