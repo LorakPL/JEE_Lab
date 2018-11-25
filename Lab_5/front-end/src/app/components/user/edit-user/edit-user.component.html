@@ -1,0 +1,30 @@
+<form #userForm="ngForm" *ngIf="user" autocomplete="off">
+  <table class="table table-striped">
+    <tr>
+      <td>Nazwa użytkownika:</td>
+      <td>
+        <input type="text" name="username" class="form-control" [(ngModel)]="user.userName">
+      </td>
+      <td class="errorText">{{usernameError}}</td>
+    </tr>
+
+    <tr>
+      <td>Imię:</td>
+      <td>
+        <input type="text" name="name" class="form-control" [(ngModel)]="user.name">
+      </td>
+      <td class="errorText">{{nameError}}</td>
+    </tr>
+
+    <tr>
+      <td>Nazwisko:</td>
+      <td>
+        <input type="text" name="secondName" class="form-control" [(ngModel)]="user.secondName">
+      </td>
+      <td class="errorText">{{secondNameError}}</td>
+    </tr>
+  </table>
+
+  <button type="button" class="btn btn-primary" (click)="save()">Zapisz</button>
+  <button type="button" class="btn btn-default" routerLink="/">Powrót</button>
+</form>

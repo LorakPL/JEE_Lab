@@ -1,0 +1,37 @@
+<form #partForm="ngForm" *ngIf="part">
+  <table class="table table-striped">
+    <tr>
+      <td>Nazwa:</td>
+      <td>
+        <input type="text" name="name" class="form-control" [(ngModel)]="part.name">
+      </td>
+      <td class="errorText">{{nameError}}</td>
+    </tr>
+
+    <tr>
+      <td>Cena:</td>
+      <td>
+        <input type="text" name="price" class="form-control" [(ngModel)]="part.price">
+      </td>
+      <td class="errorText">{{priceError}}</td>
+    </tr>
+
+    <tr>
+      <td>
+        Typ:
+      </td>
+      <td>
+        <select [(ngModel)]="part.type" name="type" class="form-control">
+          <option value="" [disabled]="disabled" [selected]="true">Wybierz</option>
+          <option *ngFor="let partType of availableTypes" [ngValue]="partType">
+            {{getType(partType)}}
+          </option>
+        </select>
+      </td>
+      <td class="errorText">{{typeError}}</td>
+    </tr>
+  </table>
+
+  <button type="button" class="btn btn-primary" (click)="save()">Zapisz</button>
+  <button type="button" class="btn btn-default" routerLink="/partsLink">Powrót</button>
+</form>
