@@ -23,11 +23,13 @@ public class UsersController {
         return viewService.findAllUsers();
     }
 
+    /*
     @GET
     @Path("/findByName/{name}")
     public Collection<User> getAllUsersByName(@PathParam("name") String name) {
         return viewService.findAllUsersByName(name);
     }
+    */
 
     @POST
     public Response saveUser(@Valid User user) {

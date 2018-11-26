@@ -18,6 +18,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static java.util.Calendar.FEBRUARY;
 import static java.util.Calendar.OCTOBER;
+import static pl.gda.pg.eti.kask.javaee.jsf.api.CryptUtils.sha256;
 
 @ApplicationScoped
 public class InitialFixture {
@@ -31,14 +32,24 @@ public class InitialFixture {
     @Transactional
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
 
-        User user1 = new User("jan.nowak@gmail.com", "Jan", "Nowak");
-        User user2 = new User("adam.kowalski@gmail.com", "Adam", "Kowalski");
-        User user3 = new User("piotr.zielinski@gmail.com", "Piotr", "Zieliński");
+        //User user1 = new User("jan.nowak@gmail.com", "Jan", "Nowak");
+        //User user2 = new User("adam.kowalski@gmail.com", "Adam", "Kowalski");
+        //User user3 = new User("piotr.zielinski@gmail.com", "Piotr", "Zieliński");
 
-        em.persist(user1);
-        em.persist(user2);
-        em.persist(user3);
+        //em.persist(user1);
+        //em.persist(user2);
+        //em.persist(user3);
 
+        //effcc54ba75fb84cca1aadb6cae302e84c29dcb550e6e19e99c4916b89c69e0b
+
+        List<String> list = new ArrayList<>();
+        list.add("ADMIN");
+
+        User user = new User("karol", sha256("karol"), list);
+
+        em.persist(user);
+
+        /*
         Part part1 = new Part("Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
         Part part2 = new Part("Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
         Part part3 = new Part("MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD);
@@ -87,5 +98,6 @@ public class InitialFixture {
             ComputerSet computerSet = new ComputerSet(viewService.getRandomUser(), partList);
             em.persist(computerSet);
         }
+        */
     }
 }

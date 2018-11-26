@@ -25,11 +25,14 @@ public class ViewService implements Serializable {
         return query.getResultList();
     }
 
+    /*
+
     public Collection<User> findAllUsersByName(String name) {
         TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_BY_NAME, User.class);
         query.setParameter("name", name);
         return query.getResultList();
     }
+    */
 
     public User findUser(int id) {
         return em.find(User.class, id);

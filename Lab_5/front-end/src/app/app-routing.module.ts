@@ -9,6 +9,7 @@ import {EditPartComponent} from './components/part/edit-part/edit-part.component
 import {ListComputerSetComponent} from './components/computer-set/list-computer-set/list-computer-set.component';
 import {ViewComputerSetComponent} from './components/computer-set/view-computer-set/view-computer-set.component';
 import {EditComputerSetComponent} from './components/computer-set/edit-computer-set/edit-computer-set.component';
+import {LoginComponent} from './components/authentication/login/login.component';
 
 const routes: Routes = [
   {path: '', component: ListUsersComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'computerSetsLink/:id', component: ViewComputerSetComponent},
   {path: 'tmp2/new', component: EditComputerSetComponent},
   {path: 'computerSetsLink/:id/edit', component: EditComputerSetComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

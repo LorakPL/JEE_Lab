@@ -17,6 +17,7 @@ import {ComputerSetService} from './components/computer-set/services/computer-se
 import { ViewComputerSetComponent } from './components/computer-set/view-computer-set/view-computer-set.component';
 import { EditComputerSetComponent } from './components/computer-set/edit-computer-set/edit-computer-set.component';
 import {SharedService} from './shared/services/shared.service';
+import { LoginComponent } from './components/authentication/login/login.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {SharedService} from './shared/services/shared.service';
     EditPartComponent,
     ListComputerSetComponent,
     ViewComputerSetComponent,
-    EditComputerSetComponent
+    EditComputerSetComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
