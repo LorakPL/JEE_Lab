@@ -1,9 +1,6 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.PartType;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -25,14 +22,11 @@ public class ViewService implements Serializable {
         return query.getResultList();
     }
 
-    /*
-
     public Collection<User> findAllUsersByName(String name) {
-        TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_BY_NAME, User.class);
+        TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_BY_LOGIN, User.class);
         query.setParameter("name", name);
         return query.getResultList();
     }
-    */
 
     public User findUser(int id) {
         return em.find(User.class, id);
@@ -62,6 +56,47 @@ public class ViewService implements Serializable {
     public User getRandomUser() {
         List<User> users = new ArrayList<>(findAllUsers());
         return em.find(User.class, ThreadLocalRandom.current().nextInt(1, users.size() + 1));
+    }
+
+    public Collection<Customer> findAllCustomers() {
+        TypedQuery<Customer> query = em.createNamedQuery(Customer.Queries.FIND_ALL, Customer.class);
+        return query.getResultList();
+    }
+
+    public Collection<Customer> findAllCustomersByName(String name) {
+        TypedQuery<Customer> query = em.createNamedQuery(Customer.Queries.FIND_BY_NAME, Customer.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
+
+    public Customer findCustomer(int id) {
+        return em.find(Customer.class, id);
+    }
+
+    @Transactional
+    public void removeCustomer(Customer customer) {
+        customer = em.merge(customer);
+        List<ComputerSet> computerSets = new ArrayList<>(findAllComputerSetsByCustomerId(customer.getId()));
+        for(ComputerSet computerSet : computerSets) {
+            removeComputerSet(computerSet);
+        }
+        em.remove(customer);
+    }
+
+    @Transactional
+    public Customer saveCustomer(Customer customer) {
+        if (customer.getId() == null) {
+            em.persist(customer);
+        } else {
+            customer = em.merge(customer);
+        }
+
+        return customer;
+    }
+
+    public Customer getRandomCustomer() {
+        List<Customer> customers = new ArrayList<>(findAllCustomers());
+        return em.find(Customer.class, ThreadLocalRandom.current().nextInt(1, customers.size() + 1));
     }
 
     public Collection<Part> findAllParts() {
@@ -114,6 +149,12 @@ public class ViewService implements Serializable {
         return query.getResultList();
     }
 
+    public Collection<ComputerSet> findAllComputerSetsByCustomerId(Integer id) {
+        TypedQuery<ComputerSet> query = em.createNamedQuery(ComputerSet.Queries.FIND_ALL_BY_USER_ID, ComputerSet.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
     @Transactional
     public void removeComputerSetsByPart(Part part) {
         List<ComputerSet> ComputerSets = new ArrayList<>(findAllComputerSets());
@@ -161,6 +202,16 @@ public class ViewService implements Serializable {
         }
     }
 
+    public boolean checkIfEnoughCustomers() {
+        List<Customer> customers = new ArrayList<>(findAllCustomers());
+        if(customers.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
     public boolean checkIfEnoughUsers() {
         List<User> users = new ArrayList<>(findAllUsers());
         if(users.size() > 0) {
@@ -169,4 +220,5 @@ public class ViewService implements Serializable {
             return false;
         }
     }
+    */
 }

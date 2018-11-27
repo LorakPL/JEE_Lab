@@ -1,9 +1,9 @@
-import {User} from './user';
+import {Customer} from './customer';
 import {Part} from './part';
 
 export class ComputerSet {
   constructor() {}
   id: number;
-  user: User = new User();
+  user: Customer = new Customer();
   parts: Part[] = [];
 }

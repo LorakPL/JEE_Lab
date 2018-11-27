@@ -39,7 +39,7 @@ export class EditComputerSetComponent implements OnInit {
 
     this.sharedService.findAllParts().subscribe(parts => this.availableParts = parts);
 
-    this.sharedService.findAllUsers().subscribe(users => this.availableUsers = users);
+    this.sharedService.findAllCustomers().subscribe(users => this.availableUsers = users);
   }
 
   getType(data) {

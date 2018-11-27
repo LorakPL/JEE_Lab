@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../model/user';
-import {UsersService} from '../services/users.service';
+import {Customer} from '../../../model/customer';
+import {CustomersService} from '../services/customers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -10,25 +10,25 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class EditUserComponent implements OnInit {
 
-  user: User;
+  user: Customer;
   usernameError = '';
   nameError = '';
   secondNameError = '';
 
-  constructor(private usersService: UsersService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private usersService: CustomersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id == null) {
-      this.user = new User();
+      this.user = new Customer();
     } else {
-      this.usersService.findUser(Number(id)).subscribe(user => this.user = user);
+      this.usersService.findCustomer(Number(id)).subscribe(user => this.user = user);
     }
   }
 
   save() {
-    this.usersService.saveUser(this.user).subscribe(
+    this.usersService.saveCustomer(this.user).subscribe(
       () => this.router.navigateByUrl(''),
       errorResponse => {
         (errorResponse.error.parameterViolations.some(res => res.path.includes('userName'))) ?

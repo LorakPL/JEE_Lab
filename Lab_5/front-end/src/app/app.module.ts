@@ -2,10 +2,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './components/app/app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { ListUsersComponent } from './components/user/list-users/list-users.component';
-import {UsersService} from './components/user/services/users.service';
+import {CustomersService} from './components/user/services/customers.service';
 import { ViewUserComponent } from './components/user/view-user/view-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { ListPartsComponent } from './components/part/list-parts/list-parts.component';
@@ -18,6 +18,12 @@ import { ViewComputerSetComponent } from './components/computer-set/view-compute
 import { EditComputerSetComponent } from './components/computer-set/edit-computer-set/edit-computer-set.component';
 import {SharedService} from './shared/services/shared.service';
 import { LoginComponent } from './components/authentication/login/login.component';
+import {LoginService} from './components/authentication/services/login.service';
+import {AuthenticationService} from './components/authentication/services/authentication.service';
+import { TestComponent } from './components/test/test.component';
+import {JwtInterceptor} from './components/authentication/helpers/jwtInterceptor';
+import {ErrorInterceptor} from './components/authentication/helpers/errorInterceptor';
+import {AuthGuard} from './components/authentication/guards/authGuard';
 
 
 @NgModule({
@@ -32,7 +38,8 @@ import { LoginComponent } from './components/authentication/login/login.componen
     ListComputerSetComponent,
     ViewComputerSetComponent,
     EditComputerSetComponent,
-    LoginComponent
+    LoginComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +48,9 @@ import { LoginComponent } from './components/authentication/login/login.componen
 
     AppRoutingModule
   ],
-  providers: [UsersService, PartsService, ComputerSetService, SharedService],
+  providers: [AuthGuard, CustomersService, PartsService, ComputerSetService, SharedService, LoginService, AuthenticationService,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

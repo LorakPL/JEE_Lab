@@ -36,6 +36,14 @@ public class InitialFixture {
         //User user2 = new User("adam.kowalski@gmail.com", "Adam", "Kowalski");
         //User user3 = new User("piotr.zielinski@gmail.com", "Piotr", "Zieliński");
 
+        Customer customer1 = new Customer("jan.nowak@gmail.com", "Jan", "Nowak");
+        Customer customer2 = new Customer("adam.kowalski@gmail.com", "Adam", "Kowalski");
+        Customer customer3 = new Customer("piotr.zielinski@gmail.com", "Piotr", "Zieliński");
+
+        em.persist(customer1);
+        em.persist(customer2);
+        em.persist(customer3);
+
         //em.persist(user1);
         //em.persist(user2);
         //em.persist(user3);
@@ -49,7 +57,7 @@ public class InitialFixture {
 
         em.persist(user);
 
-        /*
+
         Part part1 = new Part("Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
         Part part2 = new Part("Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
         Part part3 = new Part("MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD);
@@ -95,9 +103,9 @@ public class InitialFixture {
             partList.add(viewService.getPartByType(PartType.COOLING));
             partList.add(viewService.getPartByType(PartType.POWER_SUPPLY));
             partList.add(viewService.getPartByType(PartType.PROCESSOR));
-            ComputerSet computerSet = new ComputerSet(viewService.getRandomUser(), partList);
+            //ComputerSet computerSet = new ComputerSet(viewService.getRandomUser(), partList);
+            ComputerSet computerSet = new ComputerSet(viewService.getRandomCustomer(), partList);
             em.persist(computerSet);
         }
-        */
     }
 }

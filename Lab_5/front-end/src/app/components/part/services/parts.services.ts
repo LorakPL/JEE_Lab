@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {User} from '../../../model/user';
+import {Customer} from '../../../model/customer';
 import {Part} from '../../../model/part';
 import {PartType} from '../../../model/partType';
 

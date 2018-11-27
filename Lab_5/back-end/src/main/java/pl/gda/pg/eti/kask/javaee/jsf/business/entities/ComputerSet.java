@@ -21,7 +21,7 @@ import static javax.persistence.CascadeType.*;
 @Setter
 @NamedQueries({
         @NamedQuery(name = ComputerSet.Queries.FIND_ALL, query = "select c from ComputerSet c"),
-        @NamedQuery(name = ComputerSet.Queries.FIND_ALL_BY_USER_ID, query = "select c from ComputerSet c where c.user.id =: id")
+        @NamedQuery(name = ComputerSet.Queries.FIND_ALL_BY_USER_ID, query = "select c from ComputerSet c where c.customer.id =: id")
 })
 public class ComputerSet implements Serializable {
     public static class Queries {
@@ -35,15 +35,15 @@ public class ComputerSet implements Serializable {
 
     @Valid
     @ManyToOne(cascade = {MERGE, REFRESH})
-    private User user;
+    private Customer customer;
 
     @Valid
     @Size(min = 8, max = 8)
     @ManyToMany(cascade = {MERGE, REFRESH})
     List<Part> parts = new ArrayList<>();
 
-    public ComputerSet (User user, List<Part> parts) {
-        this.user = user;
+    public ComputerSet (Customer customer, List<Part> parts) {
+        this.customer = customer;
         this.parts = parts;
     }
 }

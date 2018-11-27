@@ -59,5 +59,5 @@ public class ComputerSetsController {
 
     @GET
     @Path("/checkIfEnoughUsers")
-    public boolean checkIfEnoughUsers() {return this.viewService.checkIfEnoughUsers();}
+    public boolean checkIfEnoughUsers() {return this.viewService.checkIfEnoughCustomers();}
 }

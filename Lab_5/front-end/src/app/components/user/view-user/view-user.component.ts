@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../model/user';
-import {UsersService} from '../services/users.service';
+import {Customer} from '../../../model/customer';
+import {CustomersService} from '../services/customers.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -10,13 +10,13 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ViewUserComponent implements OnInit {
 
-  user: User;
+  user: Customer;
 
-  constructor(private usersService: UsersService, private route: ActivatedRoute) { }
+  constructor(private usersService: CustomersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.usersService.findUser(Number(id)).subscribe(user => this.user = user);
+    this.usersService.findCustomer(Number(id)).subscribe(user => this.user = user);
   }
 
 }
