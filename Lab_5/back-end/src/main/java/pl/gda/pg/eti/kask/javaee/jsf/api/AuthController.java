@@ -4,15 +4,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.UserPass;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.util.Date;
@@ -32,12 +30,9 @@ public class AuthController {
 
     @POST
     @Path("/token")
-    public Response issueToken(@FormParam("login") String login, @FormParam("password") String password,
-                               @Context HttpServletRequest request) {
+    public Response issueToken(UserPass userPass, @Context HttpServletRequest request) {
         try {
-            login = "karol";
-            password = "karol";
-            request.login(login, password);
+            request.login(userPass.getUsername(), userPass.getPassword());
         } catch (ServletException e) {
             throw new NotAuthorizedException(e, "Form");
         }

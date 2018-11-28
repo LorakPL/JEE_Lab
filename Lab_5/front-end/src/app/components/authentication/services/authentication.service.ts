@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {UserPass} from '../../../model/userPass';
 
 @Injectable()
 export class AuthenticationService {
@@ -23,7 +24,8 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post<any>(`api/token`, { username, password },  {headers, observe: 'response'})
+    let userPass = new UserPass(username, password);
+    return this.http.post<any>(`api/token`, JSON.stringify(userPass),  {headers, observe: 'response'})
       .pipe(map(response => {
         this.token = response.headers.get('Authorization');
 

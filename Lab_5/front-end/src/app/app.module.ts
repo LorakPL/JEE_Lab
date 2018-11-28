@@ -24,6 +24,7 @@ import { TestComponent } from './components/test/test.component';
 import {JwtInterceptor} from './components/authentication/helpers/jwtInterceptor';
 import {ErrorInterceptor} from './components/authentication/helpers/errorInterceptor';
 import {AuthGuard} from './components/authentication/guards/authGuard';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {AuthGuard} from './components/authentication/guards/authGuard';
     ViewComputerSetComponent,
     EditComputerSetComponent,
     LoginComponent,
-    TestComponent
+    TestComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,

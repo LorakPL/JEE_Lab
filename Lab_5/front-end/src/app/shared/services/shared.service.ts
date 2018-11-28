@@ -13,6 +13,10 @@ export class SharedService {
     return this.http.get<Customer[]>('api/customers');
   }
 
+  findAllCustomersForComputerSets(): Observable<Customer[]> {
+    return this.http.get<Customer[]>('api/customers/cs');
+  }
+
   findAllParts(): Observable<Part[]> {
     return this.http.get<Part[]>('api/parts');
   }

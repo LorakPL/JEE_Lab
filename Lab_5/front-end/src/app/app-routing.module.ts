@@ -12,25 +12,27 @@ import {EditComputerSetComponent} from './components/computer-set/edit-computer-
 import {LoginComponent} from './components/authentication/login/login.component';
 import {TestComponent} from './components/test/test.component';
 import {AuthGuard} from './components/authentication/guards/authGuard';
+import {NewPasswordComponent} from './components/new-password/new-password.component';
 
 const routes: Routes = [
-  {path: '', component: TestComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent}
   /*
-  {path: '', component: ListUsersComponent},
-  {path: 'usersLink/new', component: EditUserComponent},
-  {path: 'usersLink/:id/edit', component: EditUserComponent},
-  {path: 'usersLink/:id', component: ViewUserComponent},
-  {path: 'partsLink', component: ListPartsComponent},
-  {path: 'partsLink/:id', component: ViewPartComponent},
-  {path: 'tmp/new', component: EditPartComponent},
-  {path: 'partsLink/:id/edit', component: EditPartComponent},
-  {path: 'computerSetsLink', component: ListComputerSetComponent},
-  {path: 'computerSetsLink/:id', component: ViewComputerSetComponent},
-  {path: 'tmp2/new', component: EditComputerSetComponent},
-  {path: 'computerSetsLink/:id/edit', component: EditComputerSetComponent},
-  {path: 'login', component: LoginComponent}
+  {path: '', component: TestComponent, canActivate: [AuthGuard]},
   */
+  {path: 'login', component: LoginComponent},
+  {path: '', component: ListUsersComponent, canActivate: [AuthGuard]},
+  {path: 'usersLink/new', component: EditUserComponent, canActivate: [AuthGuard]},
+  {path: 'usersLink/:id/edit', component: EditUserComponent, canActivate: [AuthGuard]},
+  {path: 'usersLink/:id', component: ViewUserComponent, canActivate: [AuthGuard]},
+  {path: 'partsLink', component: ListPartsComponent, canActivate: [AuthGuard]},
+  {path: 'partsLink/:id', component: ViewPartComponent, canActivate: [AuthGuard]},
+  {path: 'tmp/new', component: EditPartComponent, canActivate: [AuthGuard]},
+  {path: 'partsLink/:id/edit', component: EditPartComponent, canActivate: [AuthGuard]},
+  {path: 'computerSetsLink', component: ListComputerSetComponent, canActivate: [AuthGuard]},
+  {path: 'computerSetsLink/:id', component: ViewComputerSetComponent, canActivate: [AuthGuard]},
+  {path: 'tmp2/new', component: EditComputerSetComponent, canActivate: [AuthGuard]},
+  {path: 'computerSetsLink/:id/edit', component: EditComputerSetComponent, canActivate: [AuthGuard]},
+  {path: 'test', component: TestComponent, canActivate: [AuthGuard]},
+  {path: 'newPassword', component: NewPasswordComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

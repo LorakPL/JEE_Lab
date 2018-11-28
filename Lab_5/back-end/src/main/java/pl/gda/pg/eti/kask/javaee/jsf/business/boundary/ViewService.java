@@ -2,6 +2,7 @@ package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -58,22 +59,26 @@ public class ViewService implements Serializable {
         return em.find(User.class, ThreadLocalRandom.current().nextInt(1, users.size() + 1));
     }
 
+    @RolesAllowed(User.Roles.ADMIN)
     public Collection<Customer> findAllCustomers() {
         TypedQuery<Customer> query = em.createNamedQuery(Customer.Queries.FIND_ALL, Customer.class);
         return query.getResultList();
     }
 
+    @RolesAllowed(User.Roles.ADMIN)
     public Collection<Customer> findAllCustomersByName(String name) {
         TypedQuery<Customer> query = em.createNamedQuery(Customer.Queries.FIND_BY_NAME, Customer.class);
         query.setParameter("name", name);
         return query.getResultList();
     }
 
+    @RolesAllowed(User.Roles.ADMIN)
     public Customer findCustomer(int id) {
         return em.find(Customer.class, id);
     }
 
     @Transactional
+    @RolesAllowed(User.Roles.ADMIN)
     public void removeCustomer(Customer customer) {
         customer = em.merge(customer);
         List<ComputerSet> computerSets = new ArrayList<>(findAllComputerSetsByCustomerId(customer.getId()));
@@ -84,6 +89,7 @@ public class ViewService implements Serializable {
     }
 
     @Transactional
+    @RolesAllowed(User.Roles.ADMIN)
     public Customer saveCustomer(Customer customer) {
         if (customer.getId() == null) {
             em.persist(customer);
@@ -99,16 +105,19 @@ public class ViewService implements Serializable {
         return em.find(Customer.class, ThreadLocalRandom.current().nextInt(1, customers.size() + 1));
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Collection<Part> findAllParts() {
         TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_ALL, Part.class);
         return query.getResultList();
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Part findPart(int id) {
         return em.find(Part.class, id);
     }
 
     @Transactional
+    @RolesAllowed(User.Roles.ADMIN)
     public void removePart(Part part) {
         part = em.merge(part);
         removeComputerSetsByPart(part);
@@ -116,6 +125,7 @@ public class ViewService implements Serializable {
     }
 
     @Transactional
+    @RolesAllowed(User.Roles.ADMIN)
     public Part savePart(Part part) {
         if (part.getId() == null) {
             em.persist(part);
@@ -126,11 +136,13 @@ public class ViewService implements Serializable {
         return part;
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Collection<PartType> getAllPartTypes() {
         List<PartType> enumValues = new ArrayList<PartType>(EnumSet.allOf(PartType.class));
         return Collections.synchronizedList(enumValues);
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Part getPartByType(PartType partType) {
         TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_BY_TYPE, Part.class);
         query.setParameter("partType", partType);
@@ -138,6 +150,7 @@ public class ViewService implements Serializable {
         return parts.get(ThreadLocalRandom.current().nextInt(0, parts.size()));
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Collection<ComputerSet> findAllComputerSets() {
         TypedQuery<ComputerSet> query = em.createNamedQuery(ComputerSet.Queries.FIND_ALL, ComputerSet.class);
         return query.getResultList();
@@ -168,17 +181,20 @@ public class ViewService implements Serializable {
         }
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public ComputerSet findComputerSet(int id) {
         return em.find(ComputerSet.class, id);
     }
 
     @Transactional
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public void removeComputerSet(ComputerSet computerSet) {
         computerSet = em.merge(computerSet);
         em.remove(computerSet);
     }
 
     @Transactional
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public ComputerSet saveComputerSet(ComputerSet computerSet) {
         if (computerSet.getId() == null) {
             em.persist(computerSet);
@@ -189,6 +205,7 @@ public class ViewService implements Serializable {
         return computerSet;
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public boolean checkIfEnoughParts() {
         List<Part> parts = new ArrayList<>(findAllParts());
         TreeSet<PartType> partTypes = new TreeSet<>();
@@ -202,6 +219,7 @@ public class ViewService implements Serializable {
         }
     }
 
+    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public boolean checkIfEnoughCustomers() {
         List<Customer> customers = new ArrayList<>(findAllCustomers());
         if(customers.size() > 0) {

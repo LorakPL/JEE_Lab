@@ -57,6 +57,14 @@ public class InitialFixture {
 
         em.persist(user);
 
+        List<String> list2 = new ArrayList<>();
+        list2.add("USER");
+
+        User user2 = new User("karol2", sha256("karol2"), list2);
+
+        em.persist(user2);
+
+
 
         Part part1 = new Part("Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
         Part part2 = new Part("Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
