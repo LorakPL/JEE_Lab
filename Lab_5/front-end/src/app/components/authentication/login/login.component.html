@@ -1,0 +1,7 @@
+<div class="card">
+  <h1>Logowanie</h1>
+  <input type="text" placeholder="Login" [(ngModel)]="login"/>
+  <input type="password" placeholder="Hasło" [(ngModel)]="password" />
+  <p class="text-danger" [hidden]="hide">Wprowadzone dane są błędne</p>
+  <button (click)="signIn()" class="btn btn-success">Zaloguj</button>
+</div>
