@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CustomersService} from '../user/services/customers.service';
+import {AuthenticationService} from '../authentication/services/authentication.service';
 
 @Component({
   selector: 'app-new-password',
@@ -8,30 +9,19 @@ import {CustomersService} from '../user/services/customers.service';
 })
 export class NewPasswordComponent implements OnInit {
 
+  username: string;
   password: string;
-  password2: string;
   hide = true;
 
-  constructor(private customerService: CustomersService) { }
+  constructor(private customerService: CustomersService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   changePassword() {
-
-    this.customerService.changePassword(this.password, this.password2);
-
-
-    /*
-    if(!this.password || !this.password2 || this.password !== this.password2) {
-      console.log("Błędne dane");
-      this.hide = false;
-    } else {
-      this.customerService.changePassword(this.password, this.password2);
-      console.log("OK");
-      this.hide = true;
-    }
-    */
+    this.authenticationService.new(this.username, this.password);
+    this.authenticationService.logout();
+    location.reload(true);
   }
 
 }

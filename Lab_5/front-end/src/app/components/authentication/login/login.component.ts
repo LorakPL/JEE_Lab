@@ -23,16 +23,6 @@ export class LoginComponent implements OnInit {
   }
 
   signIn() {
-
-    // this.loginService.loginUser(this.login, this.password).subscribe( res => console.log(res));
-    /*
-    this.loginService.loginUser(this.login, this.password).subscribe(
-      () => console.log("Działa"),
-      errorResponse => {
-        console.log(errorResponse);
-      });
-      */
-
     this.authenticationService.login(this.login, this.password)
       .pipe(first())
       .subscribe(
@@ -41,18 +31,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error);
-          // this.alertService.error(error);
-          // this.loading = false;
         });
-
-    /*
-    if (!this.login || !this.password) {
-      this.hide = false;
-    } else {
-      alert(this.login + ' : ' + this.password);
-      this.hide = true;
-    }
-    */
   }
 
 

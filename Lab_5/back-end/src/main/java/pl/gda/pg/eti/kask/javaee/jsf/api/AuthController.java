@@ -22,7 +22,6 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 @Path("")
 public class AuthController {
 
-    //BASE64(s3cr3t) = czNjcjN0
     public static final String SIGNING_KEY = "czNjcjN0";
 
     @Inject
@@ -41,6 +40,18 @@ public class AuthController {
         String token = buildJWT(user);
 
         return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+    }
+
+    @POST
+    @Path("/new")
+    public Response changePassword(UserPass userPass, @Context HttpServletRequest request) {
+        try {
+            userService.changePassword(userPass);
+        } catch (Exception e) {
+            throw new NotAuthorizedException(e, "Form");
+        }
+
+        return Response.ok().header(AUTHORIZATION, "Sukces").build();
     }
 
     private String buildJWT(User user) {

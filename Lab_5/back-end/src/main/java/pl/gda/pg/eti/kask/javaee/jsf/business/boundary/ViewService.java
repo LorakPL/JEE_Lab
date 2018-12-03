@@ -228,15 +228,4 @@ public class ViewService implements Serializable {
             return false;
         }
     }
-
-    /*
-    public boolean checkIfEnoughUsers() {
-        List<User> users = new ArrayList<>(findAllUsers());
-        if(users.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
 }

@@ -1,5 +1,7 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.control;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.CustomerService;
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 
@@ -10,14 +12,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
-import static java.util.Arrays.asList;
-import static java.util.Calendar.FEBRUARY;
-import static java.util.Calendar.OCTOBER;
 import static pl.gda.pg.eti.kask.javaee.jsf.api.CryptUtils.sha256;
 
 @ApplicationScoped
@@ -27,14 +23,13 @@ public class InitialFixture {
     EntityManager em;
 
     @Inject
-    ViewService viewService;
+    ViewService partService;
+
+    @Inject
+    CustomerService customerService;
 
     @Transactional
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
-
-        //User user1 = new User("jan.nowak@gmail.com", "Jan", "Nowak");
-        //User user2 = new User("adam.kowalski@gmail.com", "Adam", "Kowalski");
-        //User user3 = new User("piotr.zielinski@gmail.com", "Piotr", "Zieliński");
 
         Customer customer1 = new Customer("jan.nowak@gmail.com", "Jan", "Nowak");
         Customer customer2 = new Customer("adam.kowalski@gmail.com", "Adam", "Kowalski");
@@ -43,12 +38,6 @@ public class InitialFixture {
         em.persist(customer1);
         em.persist(customer2);
         em.persist(customer3);
-
-        //em.persist(user1);
-        //em.persist(user2);
-        //em.persist(user3);
-
-        //effcc54ba75fb84cca1aadb6cae302e84c29dcb550e6e19e99c4916b89c69e0b
 
         List<String> list = new ArrayList<>();
         list.add("ADMIN");
@@ -63,8 +52,6 @@ public class InitialFixture {
         User user2 = new User("karol2", sha256("karol2"), list2);
 
         em.persist(user2);
-
-
 
         Part part1 = new Part("Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
         Part part2 = new Part("Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
@@ -103,16 +90,15 @@ public class InitialFixture {
 
         for(int i = 0; i < 10; i++) {
             List<Part> partList = new ArrayList<>();
-            partList.add(viewService.getPartByType(PartType.MOTHERBOARD));
-            partList.add(viewService.getPartByType(PartType.GRAPHIC_CARD));
-            partList.add(viewService.getPartByType(PartType.HARD_DRIVE));
-            partList.add(viewService.getPartByType(PartType.RAM));
-            partList.add(viewService.getPartByType(PartType.CASE));
-            partList.add(viewService.getPartByType(PartType.COOLING));
-            partList.add(viewService.getPartByType(PartType.POWER_SUPPLY));
-            partList.add(viewService.getPartByType(PartType.PROCESSOR));
-            //ComputerSet computerSet = new ComputerSet(viewService.getRandomUser(), partList);
-            ComputerSet computerSet = new ComputerSet(viewService.getRandomCustomer(), partList);
+            partList.add(partService.getPartByType(PartType.MOTHERBOARD));
+            partList.add(partService.getPartByType(PartType.GRAPHIC_CARD));
+            partList.add(partService.getPartByType(PartType.HARD_DRIVE));
+            partList.add(partService.getPartByType(PartType.RAM));
+            partList.add(partService.getPartByType(PartType.CASE));
+            partList.add(partService.getPartByType(PartType.COOLING));
+            partList.add(partService.getPartByType(PartType.POWER_SUPPLY));
+            partList.add(partService.getPartByType(PartType.PROCESSOR));
+            ComputerSet computerSet = new ComputerSet(partService.getRandomCustomer(), partList);
             em.persist(computerSet);
         }
     }

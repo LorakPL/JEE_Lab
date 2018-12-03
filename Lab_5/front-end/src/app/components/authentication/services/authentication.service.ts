@@ -28,10 +28,7 @@ export class AuthenticationService {
     return this.http.post<any>(`api/token`, JSON.stringify(userPass),  {headers, observe: 'response'})
       .pipe(map(response => {
         this.token = response.headers.get('Authorization');
-
-        // login successful if there's a jwt token in the response
         if (this.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(this.token));
           this.currentUserSubject.next(this.token);
         }
@@ -40,8 +37,13 @@ export class AuthenticationService {
       }));
   }
 
+  new(username: string, password: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    let userPass = new UserPass(username, password);
+    return this.http.post<any>(`api/new`, JSON.stringify(userPass),  {headers, observe: 'response'});
+  }
+
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }

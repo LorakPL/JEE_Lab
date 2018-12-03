@@ -20,10 +20,9 @@ public class CustomersController {
     @Inject
     CustomerService customerService;
 
-    @POST
-    @Authorize
+    @PUT
     @Path("/newPass")
-    //@Authorize
+    @Authorize
     public Response changePassword(UserPass userPass) {
         customerService.changePassword(userPass);
         return Response.ok().build();
