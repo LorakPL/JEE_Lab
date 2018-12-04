@@ -15,9 +15,6 @@ import {AuthGuard} from './components/authentication/guards/authGuard';
 import {NewPasswordComponent} from './components/new-password/new-password.component';
 
 const routes: Routes = [
-  /*
-  {path: '', component: TestComponent, canActivate: [AuthGuard]},
-  */
   {path: 'login', component: LoginComponent},
   {path: '', component: ListUsersComponent, canActivate: [AuthGuard]},
   {path: 'usersLink/new', component: EditUserComponent, canActivate: [AuthGuard]},

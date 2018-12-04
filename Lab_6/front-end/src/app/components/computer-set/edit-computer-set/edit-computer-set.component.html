@@ -1,18 +1,5 @@
 <form #computerSetForm="ngForm" *ngIf="computerSet">
   <table class="table table-striped">
-    <tr>
-      <td>Użytkownik:</td>
-      <td>
-        <select [(ngModel)]="computerSet.user" name="customer" class="form-control">
-          <option value="" [disabled]="false" [selected]="true">Wybierz</option>
-          <option *ngFor="let user of availableUsers" [ngValue]="user">
-            {{user.login}}
-          </option>
-        </select>
-      </td>
-      <td [hidden]="new">{{computerSet.user.login}}</td>
-      <td class="errorText">{{userError}}</td>
-    </tr>
 
     <tr>
       <td>Płyta główna:</td>

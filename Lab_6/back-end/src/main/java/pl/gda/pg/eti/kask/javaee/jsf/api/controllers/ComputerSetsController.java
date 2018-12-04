@@ -1,9 +1,7 @@
-package pl.gda.pg.eti.kask.javaee.jsf.api;
+package pl.gda.pg.eti.kask.javaee.jsf.api.controllers;
 
-import pl.gda.pg.eti.kask.javaee.jsf.api.filters.Authorize;
 import pl.gda.pg.eti.kask.javaee.jsf.api.services.auth.CheckPermissions;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ComputerSetService;
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.CustomerService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
@@ -13,7 +11,6 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
-import java.util.List;
 
 import static javax.ws.rs.core.Response.*;
 import static pl.gda.pg.eti.kask.javaee.jsf.api.UriUtils.uri;
@@ -24,9 +21,6 @@ public class ComputerSetsController {
     @Inject
     ComputerSetService computerSetService;
 
-    //@Inject
-    //CustomerService customerService;
-
     @Inject
     PartService partService;
 
@@ -34,14 +28,12 @@ public class ComputerSetsController {
     UserService userService;
 
     @GET
-    //@Authorize
     @CheckPermissions
     public Collection<ComputerSet> getAllComputerSets() {
         return computerSetService.findAllComputerSets();
     }
 
     @POST
-    //@Authorize
     @CheckPermissions
     public Response saveComputerSet(@Valid ComputerSet computerSet) {
         computerSetService.saveComputerSet(computerSet);
@@ -50,7 +42,6 @@ public class ComputerSetsController {
 
     @GET
     @Path("/{computerSet}")
-    //@Authorize
     @CheckPermissions
     public ComputerSet getComputerSet(@PathParam("computerSet") ComputerSet computerSet) {
         return computerSet;
@@ -58,7 +49,6 @@ public class ComputerSetsController {
 
     @DELETE
     @Path("/{computerSet}")
-    //@Authorize
     @CheckPermissions
     public Response deleteComputerSet(@PathParam("computerSet") ComputerSet computerSet) {
         computerSetService.removeComputerSet(computerSet);
@@ -67,7 +57,6 @@ public class ComputerSetsController {
 
     @PUT
     @Path("/{computerSet}")
-    //@Authorize
     @CheckPermissions
     public Response updateComputerSet(@PathParam("computerSet") ComputerSet originalComputerSet, @Valid ComputerSet updatedComputerSet) {
         if (!originalComputerSet.getId().equals(updatedComputerSet.getId())) {
@@ -80,13 +69,11 @@ public class ComputerSetsController {
 
     @GET
     @Path("/checkIfEnoughParts")
-    //@Authorize
     @CheckPermissions
     public boolean checkIfEnoughParts() {return this.partService.checkIfEnoughParts();}
 
     @GET
     @Path("/checkIfEnoughUsers")
-    //@Authorize
     @CheckPermissions
     public boolean checkIfEnoughUsers() {return this.userService.checkIfEnoughUsers();}
 }

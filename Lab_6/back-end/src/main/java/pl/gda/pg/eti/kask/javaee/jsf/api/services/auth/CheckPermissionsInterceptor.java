@@ -1,9 +1,9 @@
 package pl.gda.pg.eti.kask.javaee.jsf.api.services.auth;
 
-import pl.gda.pg.eti.kask.javaee.jsf.api.ComputerSetsController;
+import pl.gda.pg.eti.kask.javaee.jsf.api.controllers.ComputerSetsController;
 import pl.gda.pg.eti.kask.javaee.jsf.api.CryptUtils;
-import pl.gda.pg.eti.kask.javaee.jsf.api.PartsController;
-import pl.gda.pg.eti.kask.javaee.jsf.api.UsersController;
+import pl.gda.pg.eti.kask.javaee.jsf.api.controllers.PartsController;
+import pl.gda.pg.eti.kask.javaee.jsf.api.controllers.UsersController;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions.CrudPermissions;
@@ -47,21 +47,16 @@ public class CheckPermissionsInterceptor implements Serializable {
 
         if(isAdmin(user)) {
             rolePermissions = getRolePermissions(User.Roles.ADMIN);
-            //rolePermissions = getRolePersmissions(ApplicationProperties.ROLE_ADMIN);
         } else if(isUser(user)) {
             rolePermissions = getRolePermissions(User.Roles.USER);
-            //rolePermissions = getRolePersmissions(ApplicationProperties.ROLE_USER);
         }
 
-        boolean tmp = hasPermissionForComputerSet(computerSet, rolePermissions, context, user);
-        boolean tmp2 = hasGeneralPermission(rolePermissions, context);
-
         if(computerSet != null) {
-            if(tmp) {
+            if(hasPermissionForComputerSet(computerSet, rolePermissions, context, user)) {
                 return context.proceed();
             }
         } else {
-            if(tmp || tmp2) {
+            if(hasPermissionForComputerSet(computerSet, rolePermissions, context, user) || hasGeneralPermission(rolePermissions, context)) {
                 return context.proceed();
             }
         }
@@ -71,12 +66,10 @@ public class CheckPermissionsInterceptor implements Serializable {
     }
 
     private boolean isAdmin(User user) {
-        //return user.getRoles().contains(ApplicationProperties.ROLE_ADMIN)
         return user.getRoles().contains(User.Roles.ADMIN);
     }
 
     private boolean isUser(User user) {
-        //return user.getRoles().contains(ApplicationProperties.ROLE_USER)
         return user.getRoles().contains(User.Roles.USER);
 
     }
@@ -85,16 +78,10 @@ public class CheckPermissionsInterceptor implements Serializable {
         if(computerSet == null) {
             return false;
         }
-
-        boolean tmp = computerSet.getUser().getLogin().equals(user.getLogin());
-
-        return tmp;
+        return computerSet.getUser().getLogin().equals(user.getLogin());
     }
 
     private RolePermissions getRolePermissions(String role) {
-        //TypedQuery<RolePermissions> query = em.createNamedQuery(ApplicationProperties.ROLE_PERMISSIONS_FIND_BY_ROLE, RolePermissions.class);
-        //query.setParameter("role", role);
-        //return query.getSingleResult();
         TypedQuery<RolePermissions> query = em.createNamedQuery(RolePermissions.Queries.ROLE_PERMISSIONS_FIND_BY_ROLE, RolePermissions.class);
         query.setParameter("role", role);
         return query.getSingleResult();
@@ -111,10 +98,7 @@ public class CheckPermissionsInterceptor implements Serializable {
     }
 
     private boolean hasPermissionForComputerSet(ComputerSet computerSet, RolePermissions rolePermissions, InvocationContext context, User user) {
-        boolean tmp = checkIfAllowed(rolePermissions, context);
-        boolean tmp2 = (isAdmin(user));
-        boolean tmp3 = isOwner(user, computerSet);
-        return computerSet != null && rolePermissions != null && tmp && (tmp2 || tmp3);
+        return computerSet != null && rolePermissions != null && checkIfAllowed(rolePermissions, context) && (isAdmin(user) || isOwner(user, computerSet));
     }
 
     private boolean hasGeneralPermission(RolePermissions rolePermissions, InvocationContext context) {

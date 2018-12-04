@@ -1,6 +1,5 @@
-package pl.gda.pg.eti.kask.javaee.jsf.api;
+package pl.gda.pg.eti.kask.javaee.jsf.api.controllers;
 
-import pl.gda.pg.eti.kask.javaee.jsf.api.filters.Authorize;
 import pl.gda.pg.eti.kask.javaee.jsf.api.services.auth.CheckPermissions;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ComputerSetService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
@@ -26,7 +25,6 @@ public class PartsController {
     ComputerSetService computerSetService;
 
     @GET
-    //@Authorize
     @CheckPermissions
     public Collection<Part> getAllParts() {
         return partService.findAllParts();
@@ -34,14 +32,12 @@ public class PartsController {
 
     @GET
     @Path("/partType")
-    //@Authorize
     @CheckPermissions
     public Collection<PartType> getAllPartType() {
         return partService.getAllPartTypes();
     }
 
     @POST
-    //@Authorize
     @CheckPermissions
     public Response savePart(@Valid Part part) {
         partService.savePart(part);
@@ -50,7 +46,6 @@ public class PartsController {
 
     @GET
     @Path("/{part}")
-    //@Authorize
     @CheckPermissions
     public Part getPart(@PathParam("part") Part part) {
         return part;
@@ -58,7 +53,6 @@ public class PartsController {
 
     @DELETE
     @Path("/{part}")
-    //@Authorize
     @CheckPermissions
     public Response deletePart(@PathParam("part") Part part) {
         partService.removePart(part);
@@ -67,7 +61,6 @@ public class PartsController {
 
     @PUT
     @Path("/{part}")
-    //@Authorize
     @CheckPermissions
     public Response updatePart(@PathParam("part") Part originalPart, @Valid Part updatedPart) {
         if (!originalPart.getId().equals(updatedPart.getId())) {

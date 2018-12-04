@@ -1,6 +1,5 @@
-package pl.gda.pg.eti.kask.javaee.jsf.api;
+package pl.gda.pg.eti.kask.javaee.jsf.api.controllers;
 
-import pl.gda.pg.eti.kask.javaee.jsf.api.filters.Authorize;
 import pl.gda.pg.eti.kask.javaee.jsf.api.services.auth.CheckPermissions;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
@@ -22,8 +21,6 @@ public class UsersController {
 
     @GET
     @CheckPermissions
-    //@Authorize
-    //@RolesAllowed(User.Roles.ADMIN)
     public Collection<User> getAllUsers() {
         return userService.findAllUsers();
     }
@@ -31,17 +28,13 @@ public class UsersController {
 
     @GET
     @Path("/findByName/{name}")
-    //@Authorize
     @CheckPermissions
-    //@RolesAllowed(User.Roles.ADMIN)
     public Collection<User> getAllUsersByLogin(@PathParam("name") String name) {
         return userService.findAllUsersByLogin(name);
     }
 
     @POST
-    //@Authorize
     @CheckPermissions
-    //@RolesAllowed(User.Roles.ADMIN)
     public Response saveUser(@Valid User user) {
         userService.saveUser(user);
         return created(uri(UsersController.class, "getUser", user.getId())).build();
@@ -49,18 +42,14 @@ public class UsersController {
 
     @GET
     @Path("/{user}")
-    //@Authorize
     @CheckPermissions
-    //@RolesAllowed(User.Roles.ADMIN)
     public User getUser(@PathParam("user") User user) {
         return user;
     }
 
     @DELETE
     @Path("/{user}")
-    //@Authorize
     @CheckPermissions
-    //@RolesAllowed(User.Roles.ADMIN)
     public Response deleteUser(@PathParam("user") User user) {
         userService.removeUser(user);
         return noContent().build();
@@ -68,9 +57,7 @@ public class UsersController {
 
     @PUT
     @Path("/{user}")
-    //@Authorize
     @CheckPermissions
-    //@RolesAllowed(User.Roles.ADMIN)
     public Response updateUser(@PathParam("user") User originalUser, @Valid User updatedUser) {
         if (!originalUser.getId().equals(updatedUser.getId())) {
             return status(Response.Status.BAD_REQUEST).build();
@@ -82,7 +69,6 @@ public class UsersController {
 
     @GET
     @Path("/cs")
-    //@Authorize
     @CheckPermissions
     public Collection<User> getAllUsersForComputerSets() {
         return userService.findAllUsersForComputerSets();

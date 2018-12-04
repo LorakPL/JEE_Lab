@@ -4,6 +4,7 @@ import {ComputerSetService} from '../services/computer-set.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SharedService} from '../../../shared/services/shared.service';
 import {PartType} from '../../../model/partType';
+import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-edit-computer-set',
@@ -54,6 +55,9 @@ export class EditComputerSetComponent implements OnInit {
 
   save() {
     this.computerSet.date = new Date();
+    if (!this.computerSet.user.login) {
+      this.computerSet.user = this.getUserByLogin(localStorage.getItem('currentUserName').replace(/"/g, ''));
+    }
     this.computerSetService.saveComputerSet(this.computerSet).subscribe(
       () => this.router.navigateByUrl('/computerSetsLink'),
       errorResponse => {
@@ -84,6 +88,16 @@ export class EditComputerSetComponent implements OnInit {
     this.coolingError = '';
     this.powerSupplyError = '';
     this.processorError = '';
+  }
+
+  getUserByLogin(login) {
+    var user = new User();
+    this.availableUsers.forEach(function (item) {
+      if (item.login === login) {
+        user = item;
+      }
+    });
+    return user;
   }
 
 }

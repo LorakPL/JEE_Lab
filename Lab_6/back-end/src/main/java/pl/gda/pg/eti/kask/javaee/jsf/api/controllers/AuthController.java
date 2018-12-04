@@ -1,4 +1,4 @@
-package pl.gda.pg.eti.kask.javaee.jsf.api;
+package pl.gda.pg.eti.kask.javaee.jsf.api.controllers;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,12 +9,8 @@ import pl.gda.pg.eti.kask.javaee.jsf.business.entities.UserPass;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -58,7 +54,6 @@ public class AuthController {
     public Response changePassword(UserPass userPass, @Context HttpServletRequest request) {
         try {
             viewService.changePassword(userPass);
-            //changeUserPassword(userPass);
         } catch (Exception e) {
             throw new NotAuthorizedException(e, "Form");
         }
@@ -73,14 +68,13 @@ public class AuthController {
         User user = null;
 
         try {
-            //user = userService.findUser(userPass.getUsername());
         } catch (Exception e) { }
 
         if(user != null) {
             return Response.status(Response.Status.CONFLICT).build();
         } else {
             List<String> list = new ArrayList<>();
-            list.add("ADMIN");
+            list.add("USER");
 
             viewService.saveUser(new User(userPass.getUsername(), sha256(userPass.getPassword()), userPass.getUsername(), userPass.getUsername(), list));
         }

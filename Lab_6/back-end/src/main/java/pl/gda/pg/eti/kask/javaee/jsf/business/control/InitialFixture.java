@@ -1,7 +1,5 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.control;
 
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.CustomerService;
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions.CrudPermissions;
@@ -28,24 +26,11 @@ public class InitialFixture {
     @Inject
     ViewService partService;
 
-    @Inject
-    CustomerService customerService;
-
     @Transactional
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
 
-        //Customer customer1 = new Customer("jan.nowak@gmail.com", "Jan", "Nowak");
-        //Customer customer2 = new Customer("adam.kowalski@gmail.com", "Adam", "Kowalski");
-        //Customer customer3 = new Customer("piotr.zielinski@gmail.com", "Piotr", "Zieliński");
-
-        //em.persist(customer1);
-        //em.persist(customer2);
-        //em.persist(customer3);
-
         List<String> list = new ArrayList<>();
         list.add("ADMIN");
-
-        //User user = new User("karol", sha256("karol"), list);
 
         User user = new User("admin", sha256("admin"), "Jan", "Nowak", list);
 
@@ -54,7 +39,6 @@ public class InitialFixture {
         List<String> list2 = new ArrayList<>();
         list2.add("USER");
 
-        //User user2 = new User("karol2", sha256("karol2"), list2);
         User user2 = new User("user", sha256("user"), "Piotr", "Zieliński", list2);
 
         em.persist(user2);
@@ -115,16 +99,5 @@ public class InitialFixture {
         RolePermissions rolePermissions2 = new RolePermissions(User.Roles.USER, new CrudPermissions(true, true, true, true, true), new CrudPermissions(true, false, true, false, false), new CrudPermissions(true, false, true, false, false));
 
         em.persist(rolePermissions2);
-
-
-                /*
-                public RolePermissions(@NotEmpty String role, @Valid @NotNull CrudPermissions computerSetsPermissions, @Valid @NotNull CrudPermissions partsPermissions, @Valid @NotNull CrudPermissions usersPermissions) {
-            this.role = role;
-            this.computerSetsPermissions = computerSetsPermissions;
-            this.partsPermissions = partsPermissions;
-            this.usersPermissions = usersPermissions;
-
-            */
-
     }
 }
