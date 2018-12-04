@@ -22,19 +22,19 @@ public class PartService {
     @Inject
     ComputerSetService computerSetService;
 
-    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
+    //@RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Collection<Part> findAllParts() {
         TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_ALL, Part.class);
         return query.getResultList();
     }
 
-    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
+    //@RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Part findPart(int id) {
         return em.find(Part.class, id);
     }
 
     @Transactional
-    @RolesAllowed(User.Roles.ADMIN)
+    //@RolesAllowed(User.Roles.ADMIN)
     public void removePart(Part part) {
         part = em.merge(part);
         computerSetService.removeComputerSetsByPart(part);
@@ -42,7 +42,7 @@ public class PartService {
     }
 
     @Transactional
-    @RolesAllowed(User.Roles.ADMIN)
+    //@RolesAllowed(User.Roles.ADMIN)
     public Part savePart(Part part) {
         if (part.getId() == null) {
             em.persist(part);
@@ -53,13 +53,13 @@ public class PartService {
         return part;
     }
 
-    @RolesAllowed(User.Roles.ADMIN)
+    //@RolesAllowed(User.Roles.ADMIN)
     public Collection<PartType> getAllPartTypes() {
         List<PartType> enumValues = new ArrayList<PartType>(EnumSet.allOf(PartType.class));
         return Collections.synchronizedList(enumValues);
     }
 
-    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
+    //@RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public Part getPartByType(PartType partType) {
         TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_BY_TYPE, Part.class);
         query.setParameter("partType", partType);
@@ -67,7 +67,7 @@ public class PartService {
         return parts.get(ThreadLocalRandom.current().nextInt(0, parts.size()));
     }
 
-    @RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
+    //@RolesAllowed({User.Roles.ADMIN, User.Roles.USER})
     public boolean checkIfEnoughParts() {
         List<Part> parts = new ArrayList<>(findAllParts());
         TreeSet<PartType> partTypes = new TreeSet<>();

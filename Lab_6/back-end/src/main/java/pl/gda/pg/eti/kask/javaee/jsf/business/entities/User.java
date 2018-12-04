@@ -44,12 +44,22 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    private String name;
+
+    @Getter
+    @Setter
+    private String secondName;
+
+    @Getter
+    @Setter
     @ElementCollection
     private List<String> roles;
 
-    public User(String login, String password, List<String> roles) {
+    public User(String login, String password, String name, String secondName, List<String> roles) {
         this.login = login;
         this.password = password;
+        this.name = name;
+        this.secondName = secondName;
         this.roles = roles;
     }
 }

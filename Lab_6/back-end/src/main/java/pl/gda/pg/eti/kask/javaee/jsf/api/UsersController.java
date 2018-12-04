@@ -1,16 +1,13 @@
 package pl.gda.pg.eti.kask.javaee.jsf.api;
 
 import pl.gda.pg.eti.kask.javaee.jsf.api.filters.Authorize;
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
+import pl.gda.pg.eti.kask.javaee.jsf.api.services.auth.CheckPermissions;
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.UserPass;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
@@ -21,35 +18,39 @@ import static pl.gda.pg.eti.kask.javaee.jsf.api.UriUtils.uri;
 public class UsersController {
 
     @Inject
-    ViewService viewService;
+    UserService userService;
 
     @GET
-    @Authorize
+    @CheckPermissions
+    //@Authorize
     //@RolesAllowed(User.Roles.ADMIN)
     public Collection<User> getAllUsers() {
-        return viewService.findAllUsers();
+        return userService.findAllUsers();
     }
 
 
     @GET
     @Path("/findByName/{name}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     //@RolesAllowed(User.Roles.ADMIN)
-    public Collection<User> getAllUsersByName(@PathParam("name") String name) {
-        return viewService.findAllUsersByName(name);
+    public Collection<User> getAllUsersByLogin(@PathParam("name") String name) {
+        return userService.findAllUsersByLogin(name);
     }
 
     @POST
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     //@RolesAllowed(User.Roles.ADMIN)
     public Response saveUser(@Valid User user) {
-        viewService.saveUser(user);
+        userService.saveUser(user);
         return created(uri(UsersController.class, "getUser", user.getId())).build();
     }
 
     @GET
     @Path("/{user}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     //@RolesAllowed(User.Roles.ADMIN)
     public User getUser(@PathParam("user") User user) {
         return user;
@@ -57,23 +58,33 @@ public class UsersController {
 
     @DELETE
     @Path("/{user}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     //@RolesAllowed(User.Roles.ADMIN)
     public Response deleteUser(@PathParam("user") User user) {
-        viewService.removeUser(user);
+        userService.removeUser(user);
         return noContent().build();
     }
 
     @PUT
     @Path("/{user}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     //@RolesAllowed(User.Roles.ADMIN)
     public Response updateUser(@PathParam("user") User originalUser, @Valid User updatedUser) {
         if (!originalUser.getId().equals(updatedUser.getId())) {
             return status(Response.Status.BAD_REQUEST).build();
         }
 
-        viewService.saveUser(updatedUser);
+        userService.saveUser(updatedUser);
         return ok().build();
+    }
+
+    @GET
+    @Path("/cs")
+    //@Authorize
+    @CheckPermissions
+    public Collection<User> getAllUsersForComputerSets() {
+        return userService.findAllUsersForComputerSets();
     }
 }

@@ -3,20 +3,28 @@ package pl.gda.pg.eti.kask.javaee.jsf.api;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.UserPass;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static java.time.ZonedDateTime.now;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static pl.gda.pg.eti.kask.javaee.jsf.api.CryptUtils.sha256;
 
 @RequestScoped
 @Path("")
@@ -26,6 +34,9 @@ public class AuthController {
 
     @Inject
     UserService userService;
+
+    @Inject
+    ViewService viewService;
 
     @POST
     @Path("/token")
@@ -46,13 +57,36 @@ public class AuthController {
     @Path("/new")
     public Response changePassword(UserPass userPass, @Context HttpServletRequest request) {
         try {
-            userService.changePassword(userPass);
+            viewService.changePassword(userPass);
+            //changeUserPassword(userPass);
         } catch (Exception e) {
             throw new NotAuthorizedException(e, "Form");
         }
 
         return Response.ok().header(AUTHORIZATION, "Sukces").build();
     }
+
+
+    @POST
+    @Path("/register")
+    public Response register(UserPass userPass, @Context HttpServletRequest request) {
+        User user = null;
+
+        try {
+            //user = userService.findUser(userPass.getUsername());
+        } catch (Exception e) { }
+
+        if(user != null) {
+            return Response.status(Response.Status.CONFLICT).build();
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add("ADMIN");
+
+            viewService.saveUser(new User(userPass.getUsername(), sha256(userPass.getPassword()), userPass.getUsername(), userPass.getUsername(), list));
+        }
+        return Response.ok().build();
+    }
+
 
     private String buildJWT(User user) {
         Date issuedAt = new Date();
@@ -69,5 +103,4 @@ public class AuthController {
 
         return jwtToken;
     }
-
 }

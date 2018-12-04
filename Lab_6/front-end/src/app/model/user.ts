@@ -1,7 +1,8 @@
-export class Customer {
+export class User {
   constructor() {}
   id: number;
-  userName: string;
+  login: string;
+  password: string;
   name: string;
   secondName: string;
 }

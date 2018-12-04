@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { ListUsersComponent } from './components/user/list-users/list-users.component';
-import {CustomersService} from './components/user/services/customers.service';
+import {UsersService} from './components/user/services/users.service';
 import { ViewUserComponent } from './components/user/view-user/view-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { ListPartsComponent } from './components/part/list-parts/list-parts.component';
@@ -50,7 +50,7 @@ import { NewPasswordComponent } from './components/new-password/new-password.com
 
     AppRoutingModule
   ],
-  providers: [AuthGuard, CustomersService, PartsService, ComputerSetService, SharedService, LoginService, AuthenticationService,
+  providers: [AuthGuard, UsersService, PartsService, ComputerSetService, SharedService, LoginService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]

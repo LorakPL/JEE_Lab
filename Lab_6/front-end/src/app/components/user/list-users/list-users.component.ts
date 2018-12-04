@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Customer} from '../../../model/customer';
-import {CustomersService} from '../services/customers.service';
+import {User} from '../../../model/user';
+import {UsersService} from '../services/users.service';
 import {SharedService} from '../../../shared/services/shared.service';
 
 @Component({
@@ -11,31 +11,32 @@ import {SharedService} from '../../../shared/services/shared.service';
 })
 export class ListUsersComponent implements OnInit {
 
-  users: Observable<Customer[]>;
+  users: Observable<User[]>;
   nameToFind = '';
 
-  constructor(private usersService: CustomersService, private sharedService: SharedService) {
+  constructor(private usersService: UsersService, private sharedService: SharedService) {
   }
 
   ngOnInit() {
-    this.users = this.sharedService.findAllCustomers();
+    this.users = this.sharedService.findAllUsers();
   }
 
-  remove(user: Customer) {
-    this.usersService.removeCustomer(user)
+  remove(user: User) {
+    this.usersService.removeUser(user)
       .subscribe(() => this.ngOnInit());
   }
 
   find() {
     if (this.nameToFind) {
-      this.users = this.usersService.findAllCustomersByName(this.nameToFind);
+      this.users = this.usersService.findAllUsersByName(this.nameToFind);
     } else {
       alert("Imię nie może być puste");
     }
   }
 
   all() {
-    this.users = this.sharedService.findAllCustomers();
+    this.nameToFind = '';
+    this.users = this.sharedService.findAllUsers();
   }
 
 }

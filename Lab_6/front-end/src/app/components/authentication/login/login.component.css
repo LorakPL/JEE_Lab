@@ -29,3 +29,8 @@ button {
   font-weight: bold;
   color: red;
 }
+
+p {
+  cursor: pointer;
+  color: blue;
+}

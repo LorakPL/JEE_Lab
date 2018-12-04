@@ -1,6 +1,7 @@
 package pl.gda.pg.eti.kask.javaee.jsf.api;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -21,5 +22,17 @@ public class CryptUtils {
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             return null;
         }
+    }
+
+    public static String decodeBase64(String value) {
+        String result;
+
+        try {
+            byte[] partAsBytes = value.getBytes(StandardCharsets.UTF_8);
+            result = new String(java.util.Base64.getUrlDecoder().decode(partAsBytes), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new RuntimeException("Couldn't decode value = " + value, e);
+        }
+        return result;
     }
 }

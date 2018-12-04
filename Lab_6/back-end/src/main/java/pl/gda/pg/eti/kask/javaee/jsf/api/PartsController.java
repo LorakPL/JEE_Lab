@@ -1,14 +1,12 @@
 package pl.gda.pg.eti.kask.javaee.jsf.api;
 
 import pl.gda.pg.eti.kask.javaee.jsf.api.filters.Authorize;
+import pl.gda.pg.eti.kask.javaee.jsf.api.services.auth.CheckPermissions;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ComputerSetService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.PartType;
-import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -28,20 +26,23 @@ public class PartsController {
     ComputerSetService computerSetService;
 
     @GET
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     public Collection<Part> getAllParts() {
         return partService.findAllParts();
     }
 
     @GET
     @Path("/partType")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     public Collection<PartType> getAllPartType() {
         return partService.getAllPartTypes();
     }
 
     @POST
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     public Response savePart(@Valid Part part) {
         partService.savePart(part);
         return created(uri(PartsController.class, "getPart", part.getId())).build();
@@ -49,14 +50,16 @@ public class PartsController {
 
     @GET
     @Path("/{part}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     public Part getPart(@PathParam("part") Part part) {
         return part;
     }
 
     @DELETE
     @Path("/{part}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     public Response deletePart(@PathParam("part") Part part) {
         partService.removePart(part);
         return noContent().build();
@@ -64,7 +67,8 @@ public class PartsController {
 
     @PUT
     @Path("/{part}")
-    @Authorize
+    //@Authorize
+    @CheckPermissions
     public Response updatePart(@PathParam("part") Part originalPart, @Valid Part updatedPart) {
         if (!originalPart.getId().equals(updatedPart.getId())) {
             return status(Response.Status.BAD_REQUEST).build();

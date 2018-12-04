@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Customer} from '../../model/customer';
+import {User} from '../../model/user';
 import {Part} from '../../model/part';
 
 @Injectable()
@@ -9,12 +9,12 @@ export class SharedService {
 
   constructor(private http: HttpClient) { }
 
-  findAllCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>('api/customers');
+  findAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>('api/users');
   }
 
-  findAllCustomersForComputerSets(): Observable<Customer[]> {
-    return this.http.get<Customer[]>('api/customers/cs');
+  findAllUsersForComputerSets(): Observable<User[]> {
+    return this.http.get<User[]>('api/users/cs');
   }
 
   findAllParts(): Observable<Part[]> {

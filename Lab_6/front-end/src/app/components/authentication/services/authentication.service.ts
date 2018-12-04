@@ -30,6 +30,7 @@ export class AuthenticationService {
         this.token = response.headers.get('Authorization');
         if (this.token) {
           localStorage.setItem('currentUser', JSON.stringify(this.token));
+          localStorage.setItem('currentUserName', JSON.stringify(username));
           this.currentUserSubject.next(this.token);
         }
 
@@ -37,14 +38,27 @@ export class AuthenticationService {
       }));
   }
 
-  new(username: string, password: string) {
+  changePassword(username: string, password: string) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     let userPass = new UserPass(username, password);
-    return this.http.post<any>(`api/new`, JSON.stringify(userPass),  {headers, observe: 'response'});
+    return this.http.post<any>(`api/new`, JSON.stringify(userPass),  {headers, observe: 'response'})
+      .pipe(map(response => {
+        return response;
+      }));
+  }
+
+  register(username: string, password: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    let userPass = new UserPass(username, password);
+    return this.http.post<any>(`api/register`, JSON.stringify(userPass),  {headers, observe: 'response'})
+      .pipe(map(response => {
+        return response;
+      }));
   }
 
   logout() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserName');
     this.currentUserSubject.next(null);
   }
 }

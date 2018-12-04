@@ -3,14 +3,14 @@
     <tr>
       <td>Użytkownik:</td>
       <td>
-        <select [(ngModel)]="computerSet.customer" name="customer" class="form-control">
+        <select [(ngModel)]="computerSet.user" name="customer" class="form-control">
           <option value="" [disabled]="false" [selected]="true">Wybierz</option>
-          <option *ngFor="let customer of availableUsers" [ngValue]="customer">
-            {{customer.userName}}
+          <option *ngFor="let user of availableUsers" [ngValue]="user">
+            {{user.login}}
           </option>
         </select>
       </td>
-      <td [hidden]="new">{{computerSet.customer.userName}}</td>
+      <td [hidden]="new">{{computerSet.user.login}}</td>
       <td class="errorText">{{userError}}</td>
     </tr>
 

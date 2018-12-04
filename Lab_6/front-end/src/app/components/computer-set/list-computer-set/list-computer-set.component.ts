@@ -25,6 +25,7 @@ export class ListComputerSetComponent implements OnInit {
   }
 
   remove(computerSet: ComputerSet) {
+
     this.computerSetService.removeComputerSet(computerSet)
       .subscribe(() => this.ngOnInit());
   }

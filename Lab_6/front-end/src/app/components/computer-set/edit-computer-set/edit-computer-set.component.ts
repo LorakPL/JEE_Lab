@@ -39,7 +39,7 @@ export class EditComputerSetComponent implements OnInit {
 
     this.sharedService.findAllParts().subscribe(parts => this.availableParts = parts);
 
-    this.sharedService.findAllCustomersForComputerSets().subscribe(users => this.availableUsers = users);
+    this.sharedService.findAllUsersForComputerSets().subscribe(users => this.availableUsers = users);
   }
 
   getType(data) {
@@ -53,6 +53,7 @@ export class EditComputerSetComponent implements OnInit {
   }
 
   save() {
+    this.computerSet.date = new Date();
     this.computerSetService.saveComputerSet(this.computerSet).subscribe(
       () => this.router.navigateByUrl('/computerSetsLink'),
       errorResponse => {
