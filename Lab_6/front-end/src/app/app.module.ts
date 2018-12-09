@@ -26,7 +26,6 @@ import {ErrorInterceptor} from './components/authentication/helpers/errorInterce
 import {AuthGuard} from './components/authentication/guards/authGuard';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

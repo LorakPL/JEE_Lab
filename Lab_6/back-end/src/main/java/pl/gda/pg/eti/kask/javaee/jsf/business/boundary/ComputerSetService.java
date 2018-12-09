@@ -1,9 +1,14 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
+import pl.gda.pg.eti.kask.javaee.jsf.api.Events.ComputerSetCreation;
+import pl.gda.pg.eti.kask.javaee.jsf.api.Events.ComputerSetEvent;
+import pl.gda.pg.eti.kask.javaee.jsf.api.Events.ComputerSetModification;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -17,6 +22,9 @@ import java.util.List;
 public class ComputerSetService {
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    private Event<ComputerSetEvent> computerSetEventEvent;
 
     public Collection<ComputerSet> findAllComputerSets() {
         TypedQuery<ComputerSet> query = em.createNamedQuery(ComputerSet.Queries.FIND_ALL, ComputerSet.class);
@@ -58,8 +66,12 @@ public class ComputerSetService {
     public ComputerSet saveComputerSet(ComputerSet computerSet) {
         if (computerSet.getId() == null) {
             em.persist(computerSet);
+            //computerSetEventEvent.select(ComputerSetCreation.Literal).fire(ComputerSetEvent.of(computerSet));
+            computerSetEventEvent.fire(new ComputerSetEvent(computerSet));
         } else {
             computerSet = em.merge(computerSet);
+            //computerSetEventEvent.select(ComputerSetModification.Literal).fire(ComputerSetEvent.of(computerSet));
+            computerSetEventEvent.fire(new ComputerSetEvent(computerSet));
         }
         return computerSet;
     }

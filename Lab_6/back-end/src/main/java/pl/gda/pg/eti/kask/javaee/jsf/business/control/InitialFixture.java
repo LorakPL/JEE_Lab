@@ -92,11 +92,17 @@ public class InitialFixture {
             em.persist(computerSet);
         }
 
-        RolePermissions rolePermissions = new RolePermissions(User.Roles.ADMIN, new CrudPermissions(true, true, true, true, true), new CrudPermissions(true, true, true, true, true), new CrudPermissions(true, true, true, true, true));
+        RolePermissions rolePermissions = new RolePermissions(User.Roles.ADMIN,
+                new CrudPermissions(true, true, true, true, true),
+                new CrudPermissions(true, true, true, true, true),
+                new CrudPermissions(true, true, true, true, true));
 
         em.persist(rolePermissions);
 
-        RolePermissions rolePermissions2 = new RolePermissions(User.Roles.USER, new CrudPermissions(true, true, true, true, true), new CrudPermissions(true, false, true, false, false), new CrudPermissions(true, false, true, false, false));
+        RolePermissions rolePermissions2 = new RolePermissions(User.Roles.USER,
+                new CrudPermissions(true, true, true, true, true),
+                new CrudPermissions(true, false, true, false, false),
+                new CrudPermissions(true, false, true, false, false));
 
         em.persist(rolePermissions2);
     }

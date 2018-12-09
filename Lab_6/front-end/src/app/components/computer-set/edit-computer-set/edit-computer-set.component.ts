@@ -36,6 +36,7 @@ export class EditComputerSetComponent implements OnInit {
     } else {
       this.new = false;
       this.computerSetService.findComputerSet(Number(id)).subscribe(computerSet => this.computerSet = computerSet);
+      this.computerSetService.getUpdate().subscribe(res => console.log(res));
     }
 
     this.sharedService.findAllParts().subscribe(parts => this.availableParts = parts);
@@ -64,6 +65,7 @@ export class EditComputerSetComponent implements OnInit {
         (errorResponse.error.parameterViolations.some(res => res.path.includes('user'))) ?
           this.userError = 'Wartość w polu użytkownik nie może być pusta' : this.userError = '';
         (errorResponse.error.parameterViolations.some(res => res.path.includes('parts'))) ? this.validateParts() : this.clearParts();
+
       });
   }
 
