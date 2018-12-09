@@ -1,0 +1,8 @@
+@import "../node_modules/bootstrap3/dist/css/bootstrap.min.css";
+@import "styles/dashboard.css";
+@import "styles/styles.css";
+
+.errorText {
+  font-weight: bold;
+  color: red;
+}
