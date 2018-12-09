@@ -1,5 +1,8 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.control;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions.CrudPermissions;
@@ -24,20 +27,23 @@ public class InitialFixture {
     EntityManager em;
 
     @Inject
-    ViewService partService;
+    PartService partService;
+
+    @Inject
+    UserService userService;
 
     @Transactional
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
 
         List<String> list = new ArrayList<>();
-        list.add("ADMIN");
+        list.add(Consts.ADMIN);
 
         User user = new User("admin", sha256("admin"), "Jan", "Nowak", list);
 
         em.persist(user);
 
         List<String> list2 = new ArrayList<>();
-        list2.add("USER");
+        list2.add(Consts.USER);
 
         User user2 = new User("user", sha256("user"), "Piotr", "Zieliński", list2);
 
@@ -88,18 +94,18 @@ public class InitialFixture {
             partList.add(partService.getPartByType(PartType.COOLING));
             partList.add(partService.getPartByType(PartType.POWER_SUPPLY));
             partList.add(partService.getPartByType(PartType.PROCESSOR));
-            ComputerSet computerSet = new ComputerSet(partService.getRandomUser(), new Date(), partList);
+            ComputerSet computerSet = new ComputerSet(userService.getRandomUser(), new Date(), partList);
             em.persist(computerSet);
         }
 
-        RolePermissions rolePermissions = new RolePermissions(User.Roles.ADMIN,
+        RolePermissions rolePermissions = new RolePermissions(Consts.ADMIN,
                 new CrudPermissions(true, true, true, true, true),
                 new CrudPermissions(true, true, true, true, true),
                 new CrudPermissions(true, true, true, true, true));
 
         em.persist(rolePermissions);
 
-        RolePermissions rolePermissions2 = new RolePermissions(User.Roles.USER,
+        RolePermissions rolePermissions2 = new RolePermissions(Consts.USER,
                 new CrudPermissions(true, true, true, true, true),
                 new CrudPermissions(true, false, true, false, false),
                 new CrudPermissions(true, false, true, false, false));

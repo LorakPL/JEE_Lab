@@ -1,5 +1,6 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Part;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.PartType;
 
@@ -21,7 +22,7 @@ public class PartService {
     ComputerSetService computerSetService;
 
     public Collection<Part> findAllParts() {
-        TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_ALL, Part.class);
+        TypedQuery<Part> query = em.createNamedQuery(Consts.FIND_ALL_PARTS, Part.class);
         return query.getResultList();
     }
 
@@ -53,7 +54,7 @@ public class PartService {
     }
 
     public Part getPartByType(PartType partType) {
-        TypedQuery<Part> query = em.createNamedQuery(Part.Queries.FIND_BY_TYPE, Part.class);
+        TypedQuery<Part> query = em.createNamedQuery(Consts.FIND_PART_BY_TYPE, Part.class);
         query.setParameter("partType", partType);
         List<Part> parts = new ArrayList<>(query.getResultList());
         return parts.get(ThreadLocalRandom.current().nextInt(0, parts.size()));

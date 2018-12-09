@@ -1,7 +1,9 @@
 package pl.gda.pg.eti.kask.javaee.jsf.business.boundary;
 
+import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.UserPass;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -14,6 +16,9 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static pl.gda.pg.eti.kask.javaee.jsf.api.CryptUtils.sha256;
 
 @Stateless
 public class UserService {
@@ -28,11 +33,15 @@ public class UserService {
     SessionContext sessionCtx;
 
     public List<User> findAllUsers() {
-        return em.createNamedQuery(User.Queries.FIND_ALL, User.class).getResultList();
+        return em.createNamedQuery(Consts.FIND_ALL_USERS, User.class).getResultList();
     }
 
     public User findUser(String login) {
         return findUserByLogin(login);
+    }
+
+    public User findUserById(int id) {
+        return em.find(User.class, id);
     }
 
     public User findCurrentUser() {
@@ -41,13 +50,13 @@ public class UserService {
     }
 
     private User findUserByLogin(String login) {
-        TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_BY_LOGIN, User.class);
+        TypedQuery<User> query = em.createNamedQuery(Consts.FIND_USER_BY_LOGIN, User.class);
         query.setParameter("login", login);
         return query.getSingleResult();
     }
 
     public Collection<User> findAllUsersByLogin(String login) {
-        TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_BY_LOGIN, User.class);
+        TypedQuery<User> query = em.createNamedQuery(Consts.FIND_USER_BY_LOGIN, User.class);
         query.setParameter("login", login);
         return query.getResultList();
     }
@@ -74,7 +83,7 @@ public class UserService {
     }
 
     public Collection<User> findAllUsersForComputerSets() {
-        TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_ALL, User.class);
+        TypedQuery<User> query = em.createNamedQuery(Consts.FIND_ALL_USERS, User.class);
         return query.getResultList();
     }
 
@@ -85,6 +94,18 @@ public class UserService {
         } else {
             return false;
         }
+    }
+
+    public User getRandomUser() {
+        List<User> users = new ArrayList<>(findAllUsers());
+        return em.find(User.class, ThreadLocalRandom.current().nextInt(1, users.size() + 1));
+    }
+
+    @Transactional
+    public void changePassword(UserPass userPass) {
+        User user = findUser(userPass.getUsername());
+        user.setPassword(sha256(userPass.getPassword()));
+        em.merge(user);
     }
 
 }

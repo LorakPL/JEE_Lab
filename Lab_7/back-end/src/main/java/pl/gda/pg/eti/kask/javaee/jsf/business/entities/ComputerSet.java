@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -21,15 +22,10 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @NamedQueries({
-        @NamedQuery(name = ComputerSet.Queries.FIND_ALL, query = "select c from ComputerSet c"),
-        @NamedQuery(name = ComputerSet.Queries.FIND_ALL_BY_USER_ID, query = "select c from ComputerSet c where c.user.id =: id")
+        @NamedQuery(name = Consts.FIND_ALL_COMPUTER_SETS, query = "select c from ComputerSet c"),
+        @NamedQuery(name = Consts.FIND_ALL_COMPUTER_SETS_BY_USER_ID, query = "select c from ComputerSet c where c.user.id =: id")
 })
 public class ComputerSet implements Serializable, Comparable<ComputerSet> {
-    public static class Queries {
-        public static final String FIND_ALL = "COMPUTERSET_FIND_ALL";
-        public static final String FIND_ALL_BY_USER_ID = "COMPUTERSET_FIND_ALL_BY_USER_ID";
-    }
-
     @Id
     @GeneratedValue
     private Integer id;
