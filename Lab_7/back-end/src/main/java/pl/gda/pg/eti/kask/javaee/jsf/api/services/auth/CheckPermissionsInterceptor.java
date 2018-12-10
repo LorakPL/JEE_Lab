@@ -4,6 +4,7 @@ import pl.gda.pg.eti.kask.javaee.jsf.api.controllers.ComputerSetsController;
 import pl.gda.pg.eti.kask.javaee.jsf.api.CryptUtils;
 import pl.gda.pg.eti.kask.javaee.jsf.api.controllers.PartsController;
 import pl.gda.pg.eti.kask.javaee.jsf.api.controllers.UsersController;
+import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.ComputerSet;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions.CrudPermissions;
@@ -46,9 +47,9 @@ public class CheckPermissionsInterceptor implements Serializable {
         RolePermissions rolePermissions = null;
 
         if(isAdmin(user)) {
-            rolePermissions = getRolePermissions(User.Roles.ADMIN);
+            rolePermissions = getRolePermissions(Consts.ADMIN);
         } else if(isUser(user)) {
-            rolePermissions = getRolePermissions(User.Roles.USER);
+            rolePermissions = getRolePermissions(Consts.USER);
         }
 
         if(computerSet != null) {
@@ -66,11 +67,11 @@ public class CheckPermissionsInterceptor implements Serializable {
     }
 
     private boolean isAdmin(User user) {
-        return user.getRoles().contains(User.Roles.ADMIN);
+        return user.getRoles().contains(Consts.ADMIN);
     }
 
     private boolean isUser(User user) {
-        return user.getRoles().contains(User.Roles.USER);
+        return user.getRoles().contains(Consts.ADMIN);
 
     }
 
@@ -91,7 +92,7 @@ public class CheckPermissionsInterceptor implements Serializable {
         String auth = request.getHeader("authorization").replace("Bearer ", "").split("[.]")[1];
         String login = CryptUtils.decodeBase64(auth).substring(8).split("\"")[0];
 
-        TypedQuery<User> query = em.createNamedQuery(User.Queries.FIND_BY_LOGIN, User.class);
+        TypedQuery<User> query = em.createNamedQuery(Consts.FIND_USER_BY_LOGIN, User.class);
         query.setParameter("login", login);
 
         return query.getSingleResult();

@@ -1,7 +1,26 @@
-<input placeholder="Proszę podać login użytkownika" type="text" name="nameToFind" class="form-control filterInput" [(ngModel)]="nameToFind">
+<input placeholder="Proszę podać login użytkownika" type="text" name="loginToFind" class="form-control filterInput" [(ngModel)]="loginToFind">
+<input placeholder="Proszę podać imię użytkownika" type="text" name="nameToFind" class="form-control filterInput" [(ngModel)]="nameToFind">
+<input placeholder="Proszę podać nazwisko użytkownika" type="text" name="secondNameToFind" class="form-control filterInput" [(ngModel)]="secondNameToFind">
 <button class="filterButton btn btn-success" (click)="find()">Szukaj</button>
 <button class="filterButton btn btn-info" (click)="all()">Wszystkie</button>
 <table class="table table-striped table-hover">
+  <tr>
+    <th (click)="sortTable('id')">
+      Identyfikator
+    </th>
+    <th (click)="sortTable('login')">
+      Login
+    </th>
+    <th (click)="sortTable('name')">
+      Imie
+    </th>
+    <th (click)="sortTable('secondName')">
+      Nazwisko
+    </th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   <tr *ngFor="let user of users | async">
     <td>
       {{user.id}}

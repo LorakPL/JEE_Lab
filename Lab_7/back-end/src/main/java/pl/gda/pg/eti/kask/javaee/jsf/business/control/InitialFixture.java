@@ -49,6 +49,21 @@ public class InitialFixture {
 
         em.persist(user2);
 
+        User user3 = new User("use3", sha256("user3"), "Adam", "Klos", list2);
+        User user4 = new User("user4", sha256("user4"), "Michał", "Ptak", list2);
+        User user5 = new User("user5", sha256("user5"), "Piotr", "Woźniak", list2);
+        User user6 = new User("user6", sha256("user6"), "Michał", "Wąs", list2);
+        User user7 = new User("user7", sha256("user7"), "Cezary", "Kowalski", list2);
+        User user8 = new User("user8", sha256("user8"), "Hubert", "Dowbor", list2);
+
+        em.persist(user3);
+        em.persist(user4);
+        em.persist(user5);
+        em.persist(user6);
+        em.persist(user7);
+        em.persist(user8);
+
+
         Part part1 = new Part("Kingston 120GB 2,5\" SATA SSD A400", "99", PartType.HARD_DRIVE);
         Part part2 = new Part("Samsung 500GB 2,5\" SATA SSD 860 EVO", "395", PartType.HARD_DRIVE);
         Part part3 = new Part("MSI GeForce GTX 1050 TI GAMING X 4GB GDDR5", "859", PartType.GRAPHIC_CARD);

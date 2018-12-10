@@ -53,7 +53,7 @@ public class AuthController {
     @Path("/new")
     public Response changePassword(UserPass userPass, @Context HttpServletRequest request) {
         try {
-            viewService.changePassword(userPass);
+            userService.changeUserPassword(userPass);
         } catch (Exception e) {
             throw new NotAuthorizedException(e, "Form");
         }
@@ -76,7 +76,7 @@ public class AuthController {
             List<String> list = new ArrayList<>();
             list.add("USER");
 
-            viewService.saveUser(new User(userPass.getUsername(), sha256(userPass.getPassword()), userPass.getUsername(), userPass.getUsername(), list));
+            userService.registerUser(new User(userPass.getUsername(), sha256(userPass.getPassword()), userPass.getUsername(), userPass.getUsername(), list));
         }
         return Response.ok().build();
     }

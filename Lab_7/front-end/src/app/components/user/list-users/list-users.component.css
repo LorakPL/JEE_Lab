@@ -5,3 +5,6 @@
 .filterInput {
   width: 250px;
 }
+th {
+  cursor: pointer;
+}
