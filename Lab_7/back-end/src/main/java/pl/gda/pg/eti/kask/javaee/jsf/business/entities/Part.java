@@ -17,7 +17,8 @@ import java.io.Serializable;
 @Setter
 @NamedQueries({
         @NamedQuery(name = Consts.FIND_ALL_PARTS, query = "select p from Part p"),
-        @NamedQuery(name = Consts.FIND_PART_BY_TYPE, query = "select p from Part p where p.type =: partType")
+        @NamedQuery(name = Consts.FIND_PART_BY_TYPE, query = "select p from Part p where p.type =: partType"),
+        @NamedQuery(name = Consts.FIND_PART_BY_NAME, query = "select p from Part p where p.name =: name")
 })
 public class Part implements Serializable {
     @Id
