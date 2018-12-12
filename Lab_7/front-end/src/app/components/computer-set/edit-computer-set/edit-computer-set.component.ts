@@ -27,7 +27,10 @@ export class EditComputerSetComponent implements OnInit {
   processorError = '';
   new = true;
 
-  constructor(private computerSetService: ComputerSetService, private sharedService: SharedService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private computerSetService: ComputerSetService,
+              private sharedService: SharedService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -36,7 +39,6 @@ export class EditComputerSetComponent implements OnInit {
     } else {
       this.new = false;
       this.computerSetService.findComputerSet(Number(id)).subscribe(computerSet => this.computerSet = computerSet);
-      this.computerSetService.getUpdate().subscribe(res => console.log(res));
     }
 
     this.sharedService.findAllParts().subscribe(parts => this.availableParts = parts);

@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
-import java.util.Collections;
 
 import static javax.ws.rs.core.Response.*;
 import static pl.gda.pg.eti.kask.javaee.jsf.api.UriUtils.uri;
@@ -27,19 +26,23 @@ public class UsersController {
     }
 
 
+    /*
     @GET
     @Path("/findByLogin/{name}")
     @CheckPermissions
     public Collection<User> getAllUsersByLogin(@PathParam("name") String name) {
         return userService.findAllUsersByLogin(name);
     }
+    */
 
+    /*
     @GET
     @Path("/sortTable/{column}/{direction}")
     @CheckPermissions
     public Collection<User> getSortedUsers(@PathParam("column") String column, @PathParam("direction") String direction) {
         return userService.sortUsers(column, direction);
     }
+    */
 
     @POST
     @CheckPermissions

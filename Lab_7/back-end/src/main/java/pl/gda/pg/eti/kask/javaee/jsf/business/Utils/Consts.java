@@ -11,4 +11,5 @@ public final class Consts {
     public static final String FIND_ALL_COMPUTER_SETS = "COMPUTERSET_FIND_ALL";
     public static final String FIND_ALL_COMPUTER_SETS_BY_USER_ID = "COMPUTERSET_FIND_ALL_BY_USER_ID";
     public static final String FIND_COMPUTER_SET_BY_ID = "COMPUTERSET_FIND_BY_ID";
+    public static final String ROLE_PERMISSIONS_FIND_BY_ROLE = "RolePermissions.findByRole";
 }

@@ -3,7 +3,6 @@ package pl.gda.pg.eti.kask.javaee.jsf.business.control;
 import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.PartService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.*;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions.CrudPermissions;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions.RolePermissions;

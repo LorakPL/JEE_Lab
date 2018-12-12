@@ -18,7 +18,6 @@ import { ViewComputerSetComponent } from './components/computer-set/view-compute
 import { EditComputerSetComponent } from './components/computer-set/edit-computer-set/edit-computer-set.component';
 import {SharedService} from './shared/services/shared.service';
 import { LoginComponent } from './components/authentication/login/login.component';
-import {LoginService} from './components/authentication/services/login.service';
 import {AuthenticationService} from './components/authentication/services/authentication.service';
 import { TestComponent } from './components/test/test.component';
 import {JwtInterceptor} from './components/authentication/helpers/jwtInterceptor';
@@ -49,7 +48,7 @@ import { NewPasswordComponent } from './components/new-password/new-password.com
 
     AppRoutingModule
   ],
-  providers: [AuthGuard, UsersService, PartsService, ComputerSetService, SharedService, LoginService, AuthenticationService,
+  providers: [AuthGuard, UsersService, PartsService, ComputerSetService, SharedService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]

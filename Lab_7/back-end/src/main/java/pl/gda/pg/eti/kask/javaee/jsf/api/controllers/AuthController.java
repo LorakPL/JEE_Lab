@@ -3,7 +3,6 @@ package pl.gda.pg.eti.kask.javaee.jsf.api.controllers;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.UserService;
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.ViewService;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.User;
 import pl.gda.pg.eti.kask.javaee.jsf.business.entities.UserPass;
 
@@ -30,9 +29,6 @@ public class AuthController {
 
     @Inject
     UserService userService;
-
-    @Inject
-    ViewService viewService;
 
     @POST
     @Path("/token")
@@ -80,7 +76,6 @@ public class AuthController {
         }
         return Response.ok().build();
     }
-
 
     private String buildJWT(User user) {
         Date issuedAt = new Date();

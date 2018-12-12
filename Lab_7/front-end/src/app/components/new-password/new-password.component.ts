@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../user/services/users.service';
 import {AuthenticationService} from '../authentication/services/authentication.service';
 import {first} from 'rxjs/operators';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-new-password',
@@ -17,7 +17,9 @@ export class NewPasswordComponent implements OnInit {
   hide = true;
   returnUrl: string;
 
-  constructor(private customerService: UsersService, private authenticationService: AuthenticationService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private customerService: UsersService,
+              private authenticationService: AuthenticationService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -29,13 +31,10 @@ export class NewPasswordComponent implements OnInit {
     } else {
       this.hide = true;
       this.username = localStorage.getItem('currentUserName').replace(/"/g, '');
-      // console.log(this.username.replace(/"/g, ''));
-
       this.authenticationService.changePassword(this.username, this.password)
         .pipe(first())
         .subscribe(
           data => {
-            // this.router.navigate([this.returnUrl]);
             this.authenticationService.logout();
             location.reload(true);
           },

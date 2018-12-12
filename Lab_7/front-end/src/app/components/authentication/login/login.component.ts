@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../services/login.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {first} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -21,7 +20,9 @@ export class LoginComponent implements OnInit {
   buttonText = 'Zaloguj';
   link = 'Rejestracja';
 
-  constructor(private loginService: LoginService, private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   signIn() {
     if (this.registration) {
-      if(this.password !== this.password2) {
+      if (this.password !== this.password2) {
         alert("Niestety wpisane hasła się różnią");
       } else {
         this.authenticationService.register(this.login, this.password)
@@ -75,7 +76,4 @@ export class LoginComponent implements OnInit {
       this.link = 'Logowanie';
     }
   }
-
-
-
 }

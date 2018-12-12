@@ -22,9 +22,9 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @NamedQueries({
-        @NamedQuery(name = Consts.FIND_ALL_COMPUTER_SETS, query = "select c from ComputerSet c"),
-        @NamedQuery(name = Consts.FIND_ALL_COMPUTER_SETS_BY_USER_ID, query = "select c from ComputerSet c where c.user.id =: id"),
-        @NamedQuery(name = Consts.FIND_COMPUTER_SET_BY_ID, query = "select c from ComputerSet c where c.id =: id")
+        @NamedQuery(name = Consts.FIND_ALL_COMPUTER_SETS, query = "select distinct c from ComputerSet c join fetch c.parts"),
+        @NamedQuery(name = Consts.FIND_ALL_COMPUTER_SETS_BY_USER_ID, query = "select distinct c from ComputerSet c join fetch c.parts where c.user.id =: id"),
+        @NamedQuery(name = Consts.FIND_COMPUTER_SET_BY_ID, query = "select distinct c from ComputerSet c join fetch c.parts where c.id =: id")
 })
 public class ComputerSet implements Serializable, Comparable<ComputerSet> {
     @Id

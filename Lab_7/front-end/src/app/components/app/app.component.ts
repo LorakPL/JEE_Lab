@@ -8,8 +8,6 @@ import {AuthenticationService} from '../authentication/services/authentication.s
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   logout() {

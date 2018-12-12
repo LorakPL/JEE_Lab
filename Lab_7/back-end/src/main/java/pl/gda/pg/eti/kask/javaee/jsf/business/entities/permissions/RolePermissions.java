@@ -2,6 +2,7 @@ package pl.gda.pg.eti.kask.javaee.jsf.business.entities.permissions;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.gda.pg.eti.kask.javaee.jsf.business.Utils.Consts;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,13 +15,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor
-@NamedQuery(name = RolePermissions.Queries.ROLE_PERMISSIONS_FIND_BY_ROLE, query = "SELECT rp FROM RolePermissions rp WHERE rp.role = :role")
+@NamedQuery(name = Consts.ROLE_PERMISSIONS_FIND_BY_ROLE, query = "SELECT rp FROM RolePermissions rp WHERE rp.role = :role")
 public class RolePermissions {
-
-    public static class Queries {
-        public static final String ROLE_PERMISSIONS_FIND_BY_ROLE = "RolePermissions.findByRole";
-    }
-
     @Id
     @GeneratedValue
     private Integer id;

@@ -52,7 +52,7 @@ export class ListUsersComponent implements OnInit {
     if (this.sort.direction) {
       link += 'direction=' + this.sort.direction + '&';
     }
-    console.log(this.users);
+    console.log(link);
     console.log(this.sort);
     this.users = this.usersService.filterUser(link);
     console.log(this.users);

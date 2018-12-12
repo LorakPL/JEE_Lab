@@ -35,8 +35,4 @@ export class ComputerSetService {
   checkIfEnoughUsers(): Observable<boolean> {
     return this.http.get<boolean>('api/computersets/checkIfEnoughUsers');
   }
-
-  getUpdate(): Observable<any> {
-    return this.http.get<any>('api/listener');
-  }
 }

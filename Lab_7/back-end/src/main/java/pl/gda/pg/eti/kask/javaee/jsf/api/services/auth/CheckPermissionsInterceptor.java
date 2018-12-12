@@ -83,7 +83,7 @@ public class CheckPermissionsInterceptor implements Serializable {
     }
 
     private RolePermissions getRolePermissions(String role) {
-        TypedQuery<RolePermissions> query = em.createNamedQuery(RolePermissions.Queries.ROLE_PERMISSIONS_FIND_BY_ROLE, RolePermissions.class);
+        TypedQuery<RolePermissions> query = em.createNamedQuery(Consts.ROLE_PERMISSIONS_FIND_BY_ROLE, RolePermissions.class);
         query.setParameter("role", role);
         return query.getSingleResult();
     }

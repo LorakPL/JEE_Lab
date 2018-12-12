@@ -8,7 +8,6 @@ import {UserPass} from '../../../model/userPass';
 @Injectable()
 export class AuthenticationService {
 
-  // TODO change string to user when UserSerive will be extended
   private currentUserSubject: BehaviorSubject<string>;
   public currentUser: Observable<string>;
   private token: string;

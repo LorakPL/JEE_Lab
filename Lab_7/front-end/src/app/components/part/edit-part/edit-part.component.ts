@@ -14,7 +14,7 @@ export class EditPartComponent implements OnInit {
   part: Part;
   availableTypes: any[];
   nameError = '';
-  priceError ='';
+  priceError = '';
   typeError = '';
   disabled = false;
 
