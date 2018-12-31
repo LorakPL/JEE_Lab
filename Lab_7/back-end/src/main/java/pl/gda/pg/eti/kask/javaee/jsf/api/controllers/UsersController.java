@@ -25,25 +25,6 @@ public class UsersController {
         return userService.findAllUsers();
     }
 
-
-    /*
-    @GET
-    @Path("/findByLogin/{name}")
-    @CheckPermissions
-    public Collection<User> getAllUsersByLogin(@PathParam("name") String name) {
-        return userService.findAllUsersByLogin(name);
-    }
-    */
-
-    /*
-    @GET
-    @Path("/sortTable/{column}/{direction}")
-    @CheckPermissions
-    public Collection<User> getSortedUsers(@PathParam("column") String column, @PathParam("direction") String direction) {
-        return userService.sortUsers(column, direction);
-    }
-    */
-
     @POST
     @CheckPermissions
     public Response saveUser(@Valid User user) {

@@ -39,11 +39,6 @@ public class UserService {
         return em.createNamedQuery(Consts.FIND_ALL_USERS, User.class).getResultList();
     }
 
-    /*
-    public User findUser(String login) {
-        return findUserByLogin(login);
-    }
-    */
 
     public User findUserById(int id) {
         return em.find(User.class, id);
@@ -59,14 +54,6 @@ public class UserService {
         query.setParameter("login", login);
         return query.getSingleResult();
     }
-
-    /*
-    public Collection<User> findAllUsersByLogin(String login) {
-        TypedQuery<User> query = em.createNamedQuery(Consts.FIND_USER_BY_LOGIN, User.class);
-        query.setParameter("login", login);
-        return query.getResultList();
-    }
-    */
 
     @Transactional
     public User saveUser(User user) {
@@ -122,22 +109,6 @@ public class UserService {
         em.persist(user);
     }
 
-    /*
-    public Collection<User> sortUsers(String column, String direction) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
-        criteriaQuery.select(root);
-
-        if(direction.equals("desc")) {
-            criteriaQuery.orderBy(builder.desc(root.get(column)));
-        } else {
-            criteriaQuery.orderBy(builder.asc(root.get(column)));
-        }
-        return em.createQuery(criteriaQuery).getResultList();
-    }
-    */
-
     public Collection<User> getFilteredList(String login, String name, String secondName, String column, String direction) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
@@ -165,6 +136,10 @@ public class UserService {
         }
 
         return em.createQuery(criteriaQuery).getResultList();
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
 }

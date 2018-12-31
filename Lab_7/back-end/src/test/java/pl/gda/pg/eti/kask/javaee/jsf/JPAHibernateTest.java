@@ -22,14 +22,14 @@ public class JPAHibernateTest {
     private static EntityManagerFactory entityManagerFactory;
     protected static EntityManager entityManager;
 
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void init() {
         entityManagerFactory = Persistence.createEntityManagerFactory("tests_db");
         entityManager = entityManagerFactory.createEntityManager();
+        initializeDatabase();
     }
 
-    @Before
-    public void initializeDatabase() {
+    private void initializeDatabase() {
         List<String> list = new ArrayList<>();
         list.add(Consts.ADMIN);
         User user = new User("admin", sha256("admin"), "Jan", "Nowak", list);
